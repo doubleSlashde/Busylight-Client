@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="365.0" prefWidth="560.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.doubleslash.usb_led_matrix.view.AuthenticationView">
+  <children>
+    <HBox prefHeight="56.0" prefWidth="550.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="100.0" prefWidth="12.0" />
+        <Label prefHeight="61.0" prefWidth="541.0" text="Please enter your Azure Tenant ID and Client ID ">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+          <textFill>
+            <LinearGradient endX="1.0" endY="0.004761904761904745" startX="0.054141277364026186" startY="0.7285714285714285">
+              <stops>
+                <Stop>
+                  <color>
+                    <Color red="0.5529412031173706" green="0.529411792755127" blue="0.529411792755127" />
+                  </color>
+                </Stop>
+                <Stop offset="1.0">
+                  <color>
+                    <Color red="0.12156862765550613" green="0.8078431487083435" blue="1.0" />
+                  </color>
+                </Stop>
+              </stops>
+            </LinearGradient>
+          </textFill>
+        </Label>
+      </children>
+    </HBox>
+    <HBox prefHeight="61.0" prefWidth="549.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="53.0" prefWidth="20.0" />
+        <Label fx:id="tenantIDLable" prefHeight="59.0" prefWidth="97.0" styleClass="labelText" text="Tenant ID:" textFill="#f8f8f8">
+          <font>
+            <Font size="14.0" />
+          </font>
+        </Label>
+        <TextField fx:id="tenantIDTextField" prefHeight="53.0" prefWidth="425.0" promptText="Tenant ID" />
+      </children>
+    </HBox>
+    <HBox prefHeight="25.0" prefWidth="560.0" styleClass="backgroundColor" />
+    <HBox prefHeight="61.0" prefWidth="542.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="53.0" prefWidth="20.0" />
+        <Label fx:id="clientIDLable" prefHeight="59.0" prefWidth="97.0" styleClass="labelText" text="Client ID:" textFill="#f8f8f8">
+          <font>
+            <Font size="14.0" />
+          </font>
+        </Label>
+        <TextField fx:id="clientIDTextField" prefHeight="53.0" prefWidth="425.0" promptText="Client ID" />
+      </children>
+    </HBox>
+    <HBox prefHeight="66.0" prefWidth="560.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="44.0" prefWidth="395.0" />
+        <AnchorPane prefHeight="44.0" prefWidth="125.0">
+          <children>
+            <Button fx:id="setTeamsIDButton" layoutX="6.0" layoutY="8.0" mnemonicParsing="false" onAction="#setTeamsID" prefHeight="28.0" prefWidth="141.0" style="-fx-background-color: #47ccff;" text="Save IDs" />
+          </children>
+        </AnchorPane>
+      </children>
+    </HBox>
+    <HBox prefHeight="11.0" prefWidth="560.0" styleClass="backgroundColor">
+      <children>
+        <Line fx:id="line" endX="459.29290771484375" endY="-3.242640733718872" fill="#909090" startX="1018.5858154296875" startY="-3.9497475624084473" stroke="#837b7b" />
+      </children>
+    </HBox>
+    <HBox prefHeight="56.0" prefWidth="550.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="100.0" prefWidth="12.0" />
+        <Label fx:id="header_Link_Webseite" disable="true" prefHeight="61.0" prefWidth="541.0" text="Please go to the following website and enter the code below ">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+          <textFill>
+            <LinearGradient endX="1.0" endY="0.004761904761904745" startX="0.054141277364026186" startY="0.7285714285714285">
+              <stops>
+                <Stop>
+                  <color>
+                    <Color red="0.5529412031173706" green="0.529411792755127" blue="0.529411792755127" />
+                  </color>
+                </Stop>
+                <Stop offset="1.0">
+                  <color>
+                    <Color red="0.12156862765550613" green="0.8078431487083435" blue="1.0" />
+                  </color>
+                </Stop>
+              </stops>
+            </LinearGradient>
+          </textFill>
+        </Label>
+      </children>
+    </HBox>
+    <HBox prefHeight="28.0" prefWidth="554.0" styleClass="backgroundColor" />
+    <HBox prefHeight="18.0" prefWidth="550.0" styleClass="backgroundColor" />
+    <HBox prefHeight="51.0" prefWidth="550.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="100.0" prefWidth="20.0" />
+        <Label fx:id="code" disable="true" styleClass="labelText" text="Code:" textFill="WHITE" textOverrun="CLIP">
+          <font>
+            <Font size="17.0" />
+          </font>
+        </Label>
+        <AnchorPane prefHeight="100.0" prefWidth="18.0" />
+        <Label fx:id="labelCode" disable="true" prefHeight="26.0" prefWidth="132.0" styleClass="labelCode" textFill="#25d331">
+          <font>
+            <Font size="17.0" />
+          </font>
+        </Label>
+        <AnchorPane prefHeight="100.0" prefWidth="45.0" />
+        <Button fx:id="copyButton" disable="true" mnemonicParsing="false" style="-fx-background-color: #47ccff;" text="Copy" textAlignment="CENTER" textOverrun="CLIP">
+          <font>
+            <Font size="14.0" />
+          </font>
+          <cursor>
+            <Cursor fx:constant="HAND" />
+          </cursor>
+        </Button>
+      </children>
+    </HBox>
+    <HBox prefHeight="47.0" prefWidth="550.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="53.0" prefWidth="20.0" />
+        <Label fx:id="link" disable="true" prefHeight="26.0" prefWidth="48.0" styleClass="labelText" text="Link:" textFill="#f8f8f8">
+          <font>
+            <Font size="17.0" />
+          </font>
+        </Label>
+        <AnchorPane prefHeight="47.0" prefWidth="17.0" />
+        <Hyperlink fx:id="hyperWebsite" disable="true" prefHeight="29.0" prefWidth="296.0" styleClass="labelHyperlink" textFill="#34a9d3">
+          <font>
+            <Font size="15.0" />
+          </font>
+        </Hyperlink>
+      </children>
+    </HBox>
+    <HBox prefHeight="48.0" prefWidth="550.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="48.0" prefWidth="357.0" />
+        <Label fx:id="pollingMessage" prefHeight="48.0" prefWidth="197.0" textFill="#25d331">
+          <font>
+            <Font size="17.0" />
+          </font>
+        </Label>
+      </children>
+    </HBox>
+    <HBox prefHeight="63.0" prefWidth="562.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="41.0" prefWidth="418.0" />
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+          <children>
+            <Button fx:id="darkModeButton" layoutX="64.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#toggleDarkMode" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: black; -fx-background-radius: 30;" styleClass="darkMode" text="Dark Mode" textFill="WHITE" AnchorPane.topAnchor="8.0" />
+            <Button fx:id="lightModeButton" layoutX="64.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#toggleLightMode" prefHeight="37.0" prefWidth="90.0" style="-fx-background-radius: 30;" styleClass="lightMode" text="Light Mode" />
+          </children>
+        </AnchorPane>
+      </children>
+    </HBox>
+  </children>
+</VBox>

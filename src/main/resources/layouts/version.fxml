@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="193.0" prefWidth="328.0" style="-fx-background-color: black;" styleClass="backgroundColor" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.doubleslash.usb_led_matrix.view.VersionView">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="backgroundColor">
+         <children>
+            <Label prefHeight="81.0" prefWidth="252.0" text="LED Configurator">
+               <font>
+                  <Font size="32.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="0.004761904761904745" startX="0.4238095238095238" startY="0.7285714285714285">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.12156862765550613" green="0.8078431487083435" blue="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.3450980484485626" green="0.7686274647712708" blue="0.26274511218070984" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+         </children>
+      </HBox>
+      <VBox prefHeight="270.0" prefWidth="308.0" styleClass="backgroundColor">
+         <children>
+            <Label prefHeight="37.0" prefWidth="160.0" text="Versions:" textFill="#58c443">
+               <font>
+                  <Font name="System Italic" size="25.0" />
+               </font>
+               <padding>
+                  <Insets left="35.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="115.0" prefWidth="298.0" styleClass="backgroundColor">
+               <children>
+                  <VBox prefHeight="105.0" prefWidth="209.0">
+                     <children>
+                        <Label styleClass="labelText" text="Client:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                           <padding>
+                              <Insets left="34.0" />
+                           </padding>
+                        </Label>
+                        <Label prefHeight="26.0" prefWidth="171.0" styleClass="labelText" text="Microcontroller:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                           <padding>
+                              <Insets left="34.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <AnchorPane prefHeight="85.0" prefWidth="43.0" />
+                  <VBox prefHeight="102.0" prefWidth="193.0">
+                     <children>
+                        <Label fx:id="versionClient" prefHeight="26.0" prefWidth="145.0" styleClass="labelText" text="N/A" textFill="WHITE">
+                           <font>
+                              <Font size="17.0" />
+                           </font></Label>
+                        <Label fx:id="versionController" prefHeight="26.0" prefWidth="144.0" styleClass="labelText" text="N/A" textFill="WHITE">
+                           <font>
+                              <Font size="17.0" />
+                           </font></Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>

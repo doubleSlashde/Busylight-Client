@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" shutdownHook="disable">
+    <Properties>
+        <Property name="logDir">logs/</Property>
+        <Property name="logFileName">busyLight</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout>
+                <pattern>%d{HH:mm:ss.SSS} | %t | %-5level | %logger{1.} | %msg |%n</pattern>
+            </PatternLayout>
+        </Console>
+        <RollingFile
+                name="File"
+                fileName="${logDir}/${logFileName}.log"
+                filePattern="${logDir}/${logFileName}-%d{yyyy-MM-dd}.log.gz">
+            <PatternLayout>
+                <pattern>%d{HH:mm:ss.SSS} | %t | %-5level | %logger{1.} | %msg |%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${logDir}">
+                    <IfFileName glob="${logFileName}-*.log.gz" />
+                    <IfLastModified age="30d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>

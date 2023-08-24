@@ -1,0 +1,23 @@
+.labelText{
+    -fx-text-fill: black;
+}
+
+.backgroundColor {
+	-fx-background-color: white;	
+}
+
+.labelHyperlink{
+	-fx-text-fill: #34a9d3;
+}
+
+.labelCode{
+    -fx-text-fill: #25d331;
+}
+
+.lightMode, .darkModeImage{
+	visibility: hidden;
+}
+
+.darkMode, .lightModeImage{
+visibility:	visible; 
+}

@@ -1,0 +1,69 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      VERSION: 0.0.${{ github.run_number }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: corretto
+          cache: maven
+
+      - name: Build and Test
+        run: |
+          mvn clean package -Dproject.version=${{ env.VERSION }}
+
+      - name: Upload JUnit Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: junit-test-results
+          path: target/surefire-reports/TEST-*.xml
+          retention-days: 7
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: busylight_client.jar
+          path: target/busylight_client.jar
+
+  staticTest:
+    runs-on: ubuntu-latest
+
+    env:
+      VERSION: ${{ github.run_number }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: corretto
+          cache: maven
+
+      - name: Run Dependency Check
+        run: |
+          mvn -Pdependency-check org.owasp:dependency-check-maven:check -Dproject.version=${{ env.VERSION }}
+
+      - name: Upload Dependency Check Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: dependency-check-report
+          path: target/dependency-check-report.html
+          retention-days: 7

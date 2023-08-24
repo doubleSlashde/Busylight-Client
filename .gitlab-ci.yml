@@ -1,0 +1,46 @@
+image: maven:3-amazoncorretto-11
+
+stages:
+  - staticTest
+  - build
+
+variables:
+  VERSION: 0.0.${CI_PIPELINE_ID}
+
+# Jobs
+build:
+  stage: build
+  script:
+    - mvn clean package -Dproject.version=${VERSION}
+  artifacts:
+    name: "busylight_client.jar"
+    reports:
+      junit:
+        - "./target/surefire-reports/TEST-*.xml"
+    paths:
+      - ./target/busylight_client.jar
+    expire_in: 1 week
+
+sonar:
+  stage: staticTest
+  extends: .loadDSTruststore
+  script:
+    - mvn clean package sonar:sonar -DskipTests -Dproject.version=${VERSION} -Dsonar.host.url=https://sonarqube.pt2.doubleslash.org/ -Dsonar.login="$SONAR_KEY" -Dsonar.projectName=busylight_client/${CI_COMMIT_REF_NAME}
+
+dependencyCheck:
+  stage: staticTest
+  extends: .loadDSTruststore
+  script:
+    - mvn -Pdependency-check org.owasp:dependency-check-maven:check -Dproject.version=${VERSION}
+  artifacts:
+    when: always
+    name: "dependency-check-report"
+    paths:
+      - ./target/dependency-check-report.html
+    expire_in: 1 week
+
+# Helper jobs
+.loadDSTruststore:
+  before_script:
+    - echo installing custom truststore. COCT-1111
+    - curl $DS_JAVA_TRUSTSTORE_URL -o $JAVA_HOME/lib/security/jssecacerts

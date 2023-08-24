@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^org\\.openjfx:javafx-"],
+      "excludePackageNames": ["org.openjfx:javafx-maven-plugin"],
+      "allowedVersions": "/^11([-.].*)?$/"
+    },
+    {
+      "matchPackageNames": ["org.testfx:openjfx-monocle"],
+      "allowedVersions": "/^jdk-11\\+.*$/"
+    }
+  ]
+}

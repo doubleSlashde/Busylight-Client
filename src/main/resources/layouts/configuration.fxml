@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="403.0" minWidth="494.0" prefHeight="405.0" prefWidth="546.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.doubleslash.usb_led_matrix.view.ConfigurationView">
+  <children>
+    <HBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="600.0" styleClass="backgroundColor">
+      <children>
+        <Label prefHeight="56.0" prefWidth="299.0" text="LED Configurator">
+          <font>
+            <Font size="39.0" />
+          </font>
+          <textFill>
+            <LinearGradient endX="1.0" endY="0.004761904761904745" startX="0.4238095238095238" startY="0.7285714285714285">
+              <stops>
+                <Stop>
+                  <color>
+                    <Color red="0.12156862765550613" green="0.8078431487083435" blue="1.0" />
+                  </color>
+                </Stop>
+                <Stop offset="1.0">
+                  <color>
+                    <Color red="0.3450980484485626" green="0.7686274647712708" blue="0.26274511218070984" />
+                  </color>
+                </Stop>
+              </stops>
+            </LinearGradient>
+          </textFill>
+        </Label>
+        <AnchorPane prefHeight="63.0" prefWidth="159.0">
+          <children>
+            <Button fx:id="darkModeButton" layoutX="81.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#toggleDarkMode" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: black; -fx-background-radius: 30;" styleClass="darkMode" text="Dark Mode" textFill="WHITE" visible="false" />
+            <Button fx:id="lightModeButton" layoutX="81.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#toggleLightMode" prefHeight="26.0" prefWidth="90.0" style="-fx-background-radius: 30;" styleClass="lightMode" text="Light Mode" />
+          </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="64.0" prefWidth="59.0">
+          <children>
+            <ImageView fitHeight="62.0" fitWidth="65.0" onMouseClicked="#informationImageButton" pickOnBounds="true" styleClass="darkModeImage">
+              <image>
+                <Image url="@../images/information.png" />
+              </image>
+              <cursor>
+                <Cursor fx:constant="HAND" />
+              </cursor>
+            </ImageView>
+            <ImageView fitHeight="62.0" fitWidth="65.0" onMouseClicked="#informationImageButton" styleClass="lightModeImage" visible="false">
+              <image>
+                <Image url="@../images/information_light.png" />
+              </image>
+              <cursor>
+                <Cursor fx:constant="HAND" />
+              </cursor>
+            </ImageView>
+          </children>
+        </AnchorPane>
+      </children>
+    </HBox>
+    <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="48.0" prefWidth="600.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="100.0" prefWidth="34.0" />
+        <Label prefHeight="26.0" prefWidth="155.0" styleClass="labelText" text="Choose Mode:" textFill="WHITE">
+          <font>
+            <Font size="15.0" />
+          </font>
+        </Label>
+        <RadioButton fx:id="teamsRadioButton" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" styleClass="labelText" text="MS Teams" textFill="#eeeeee">
+          <cursor>
+            <Cursor fx:constant="HAND" />
+          </cursor>
+          <font>
+            <Font size="15.0" />
+          </font>
+        </RadioButton>
+        <AnchorPane prefHeight="47.0" prefWidth="10.0" />
+        <RadioButton fx:id="manualRadioButton" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" styleClass="labelText" text="Manual" textFill="#f5f5f5">
+          <cursor>
+            <Cursor fx:constant="HAND" />
+          </cursor>
+          <font>
+            <Font size="15.0" />
+          </font>
+        </RadioButton>
+      </children>
+    </HBox>
+    <Line endX="441.4644470214844" endY="-1.823902130126953E-5" startX="-100.0" strokeWidth="3.0">
+      <stroke>
+        <LinearGradient endX="1.0" endY="1.0">
+          <stops>
+            <Stop>
+              <color>
+                <Color red="0.08235294371843338" green="0.18431372940540314" blue="0.29019609093666077" />
+              </color>
+            </Stop>
+            <Stop offset="1.0">
+              <color>
+                <Color red="0.019607843831181526" green="0.27450981736183167" blue="0.19607843458652496" />
+              </color>
+            </Stop>
+          </stops>
+        </LinearGradient>
+      </stroke>
+    </Line>
+    <HBox alignment="CENTER_LEFT" prefHeight="63.0" prefWidth="600.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="100.0" prefWidth="34.0" />
+        <Label prefHeight="26.0" prefWidth="155.0" styleClass="labelText" text="Choose Port:" textFill="WHITE">
+          <font>
+            <Font size="15.0" />
+          </font>
+        </Label>
+        <ChoiceBox fx:id="portChoiceBox" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 5;">
+          <cursor>
+            <Cursor fx:constant="HAND" />
+          </cursor>
+        </ChoiceBox>
+        <AnchorPane prefHeight="63.0" prefWidth="140.0" />
+            <Button mnemonicParsing="false" onMouseClicked="#refreshButton" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 5;" text="Refresh">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="28.0">
+                     <image>
+                        <Image url="@../images/refresh.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+      </children>
+    </HBox>
+    <Line endX="441.4644470214844" endY="-1.823902130126953E-5" startX="-100.0" strokeWidth="3.0">
+      <stroke>
+        <LinearGradient endX="1.0" endY="1.0">
+          <stops>
+            <Stop>
+              <color>
+                <Color red="0.08235294371843338" green="0.18431372940540314" blue="0.29019609093666077" />
+              </color>
+            </Stop>
+            <Stop offset="1.0">
+              <color>
+                <Color red="0.019607843831181526" green="0.27450981736183167" blue="0.19607843458652496" />
+              </color>
+            </Stop>
+          </stops>
+        </LinearGradient>
+      </stroke>
+    </Line>
+    <HBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="600.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="100.0" prefWidth="34.0" />
+        <Label prefHeight="26.0" prefWidth="155.0" styleClass="labelText" text="Choose Color:" textFill="#fcfcfc">
+          <font>
+            <Font size="15.0" />
+          </font>
+        </Label>
+        <ColorPicker fx:id="colorPicker" disable="true" prefHeight="40.0" prefWidth="90.0">
+          <cursor>
+            <Cursor fx:constant="HAND" />
+          </cursor>
+        </ColorPicker>
+        <AnchorPane prefHeight="72.0" prefWidth="140.0" />
+        <Button fx:id="setColorButton" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 5;" text="Set Color">
+          <cursor>
+            <Cursor fx:constant="HAND" />
+          </cursor>
+          <font>
+            <Font size="13.0" />
+          </font>
+        </Button>
+      </children>
+    </HBox>
+    <Line endX="441.4644470214844" endY="-1.823902130126953E-5" startX="-100.0" strokeWidth="3.0">
+      <stroke>
+        <LinearGradient endX="1.0" endY="1.0">
+          <stops>
+            <Stop>
+              <color>
+                <Color red="0.08235294371843338" green="0.18431372940540314" blue="0.29019609093666077" />
+              </color>
+            </Stop>
+            <Stop offset="1.0">
+              <color>
+                <Color red="0.019607843831181526" green="0.27450981736183167" blue="0.19607843458652496" />
+              </color>
+            </Stop>
+          </stops>
+        </LinearGradient>
+      </stroke>
+    </Line>
+    <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="600.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="100.0" prefWidth="34.0" />
+        <Label prefHeight="26.0" prefWidth="155.0" styleClass="labelText" text="Choose Brightness:" textFill="#fcfcfc">
+          <font>
+            <Font size="15.0" />
+          </font>
+        </Label>
+        <Slider fx:id="brightnessSlider" disable="true" majorTickUnit="10.0" minorTickCount="4" prefHeight="38.0" prefWidth="332.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="50.0">
+          <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+          </cursor>
+        </Slider>
+        <AnchorPane prefHeight="70.0" prefWidth="10.0" />
+      </children>
+    </HBox>
+    <Line endX="441.4644470214844" endY="-1.823902130126953E-5" startX="-100.0" strokeWidth="3.0">
+      <stroke>
+        <LinearGradient endX="1.0" endY="1.0">
+          <stops>
+            <Stop>
+              <color>
+                <Color red="0.08235294371843338" green="0.18431372940540314" blue="0.29019609093666077" />
+              </color>
+            </Stop>
+            <Stop offset="1.0">
+              <color>
+                <Color red="0.019607843831181526" green="0.27450981736183167" blue="0.19607843458652496" />
+              </color>
+            </Stop>
+          </stops>
+        </LinearGradient>
+      </stroke>
+    </Line>
+    <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="546.0" styleClass="backgroundColor">
+      <children>
+        <AnchorPane prefHeight="100.0" prefWidth="34.0" />
+        <Label fx:id="connectionStatusLabel" prefHeight="38.0" prefWidth="305.0">
+          <font>
+            <Font name="System Bold" size="23.0" />
+          </font>
+        </Label>
+        <AnchorPane prefHeight="53.0" prefWidth="82.0" />
+      </children>
+    </HBox>
+  </children>
+</VBox>
