@@ -216,6 +216,8 @@ public class ConfigurationView {
                      final Parent root = fxmlLoader.load();
                      final AuthenticationView authFlow = fxmlLoader.getController();
                      final Scene scene = new Scene(root);
+                     scene.getStylesheets().add("/CSS/Style_Mode.css");
+
                      authFlow.setScene(scene);
                      authFlow.customInitialize();
                      model.deviceCodeProperty().bind(authFlow.getDeviceCodeProperty());
