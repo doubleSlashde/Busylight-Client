@@ -42,6 +42,8 @@ public class Settings {
    private static double brightness = defaultBrightness;
    private static String colorMode = defaultColorMode;
    private static String cssFile = "/CSS/light_Mode.css";
+
+   private static String styleMode = "/CSS/Style_Mode.css";
    private static int timeoutInMinutes = defaultTimeoutInMinutes;
    private static int numberOfLeds = defaultNumberOfLeds;
 
@@ -265,11 +267,14 @@ public class Settings {
       setColorMode("dark");
       if (scene.getStylesheets().contains(cssFile)) {
          scene.getStylesheets().remove(cssFile);
+         scene.getStylesheets().add(styleMode);
       }
    }
 
    public static void Light(final Scene scene) {
       scene.getStylesheets().add(cssFile);
+      scene.getStylesheets().add(styleMode);
+
       setColorMode("light");
    }
 
