@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -197,6 +198,7 @@ public class Graph {
    }
 
    public Color getStatusColorFromTeams() throws IOException, InterruptedException {
+
       String teamsStatus = getTeamsStatus();
       AvailabilityStatus availabilityStatus = null;
 
@@ -212,6 +214,27 @@ public class Graph {
       } catch (final IllegalArgumentException e) {
          LOG.warn("Unknown availability '{}'.", teamsStatus, e);
       }
+      if (availabilityStatus == AvailabilityStatus.Available) {
+         return getAvailable(); // Ersetzen Sie YOUR_DESIRED_COLOR durch die gewünschte Farbe für Offline
+      }
       return availabilityStatus.getColor();
    }
+
+   public Color getAvailable() throws IOException {
+      final String fileName = "TeamsColor.properties";
+      try {
+         final InputStream input = new FileInputStream(new File(fileName));
+         final Properties properties = new Properties();
+         properties.load(input);
+         final Color availableColor = Color.valueOf(properties.getProperty("available"));
+
+         System.out.println(availableColor);
+
+         return availableColor;
+      } finally {
+
+      }
+   }
+
+
 }

@@ -6,7 +6,9 @@ import java.net.URL;
 public enum Resources {
    CONFIGURATION_VIEW("/layouts/configuration.fxml"),
    AUTHENTICATION_VIEW("/layouts/authentication.fxml"),
-   INFO_VIEW("/layouts/version.fxml");
+   INFO_VIEW("/layouts/version.fxml"),
+
+   SETTINGS_VIEW ("/layouts/Setting.fxml");
 
    private final String location;
 

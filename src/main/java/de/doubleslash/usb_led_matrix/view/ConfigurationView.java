@@ -7,6 +7,7 @@ import de.doubleslash.usb_led_matrix.resources.Resources;
 import de.doubleslash.usb_led_matrix.usb_adapter.UsbAdapter;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,12 +25,14 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jssc.SerialPortException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 import java.io.IOException;
 import java.time.LocalTime;
@@ -405,7 +408,7 @@ public class ConfigurationView {
    }
 
    @FXML
-   void informationImageButton(final MouseEvent event) throws SerialPortException {
+   void informationImageButton(final MouseEvent event) throws SerialPortException, IOException {
       final FXMLLoader fxmlLoader = new FXMLLoader(Resources.INFO_VIEW.getResource());
       try {
          usbAdapter.requestVersion();
@@ -463,6 +466,46 @@ public class ConfigurationView {
       }
    }
 
+   @FXML
+   void aboutButton() {
+      final FXMLLoader fxmlLoader = new FXMLLoader(Resources.INFO_VIEW.getResource());
+      try {
+         usbAdapter.requestVersion();
+         final Parent root = fxmlLoader.load();
+         final VersionView versionView = fxmlLoader.getController();
+         final Scene scene = new Scene(root);
+         versionView.setScene(scene);
+         versionView.instantiate(usbAdapter.versionProperty());
+
+         popUpStage.setScene(scene);
+         popUpStage.getIcons().add(image);
+         popUpStage.setTitle("Info");
+         popUpStage.setMinWidth(328);
+         popUpStage.setMinHeight(193);
+         popUpStage.setMaxHeight(193);
+         popUpStage.setMaxWidth(328);
+         popUpStage.setResizable(false);
+         popUpStage.showAndWait();
+      } catch (final IOException | SerialPortException e) {
+         LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
+      }   }
+
+   @FXML
+   void settingsButton() {
+      try {
+         Stage stage = new Stage();
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/Setting.fxml"));
+         Parent root = loader.load();
+         Scene scene = new Scene(root);
+         stage.setTitle("Einstellungen");
+         stage.setScene(scene);
+         stage.show();
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+
    void setUsbAdapter(final UsbAdapter usbAdapter) {
       this.usbAdapter = usbAdapter;
    }
@@ -476,4 +519,6 @@ public class ConfigurationView {
    void toggleDarkMode(final MouseEvent event) {
       Settings.Dark(scene);
    }
+
+
 }

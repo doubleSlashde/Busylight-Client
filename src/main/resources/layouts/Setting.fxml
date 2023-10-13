@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="374.0" minWidth="461.0" prefHeight="385.0" prefWidth="461.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.doubleslash.usb_led_matrix.view.SettingsView">
+   <children>
+      <HBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="600.0" styleClass="backgroundColor">
+         <children>
+            <Label prefHeight="56.0" prefWidth="389.0" text="LED Configurator">
+               <font>
+                  <Font size="39.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="0.004761904761904745" startX="0.4238095238095238" startY="0.7285714285714285">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.12156862765550613" green="0.8078431487083435" blue="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.3450980484485626" green="0.7686274647712708" blue="0.26274511218070984" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <AnchorPane prefHeight="64.0" prefWidth="216.0" />
+         </children>
+      </HBox>
+      <Line endX="441.4644470214844" endY="-1.823902130126953E-5" startX="-100.0" strokeWidth="3.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.08235294371843338" green="0.18431372940540314" blue="0.29019609093666077" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.019607843831181526" green="0.27450981736183167" blue="0.19607843458652496" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <TabPane prefHeight="305.0" prefWidth="416.0" rotateGraphic="true" side="LEFT" style="-fx-background-color: black;" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Color">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="302.0" prefWidth="333.0">
+                     <children>
+                        <VBox layoutY="20.0" prefHeight="393.0" prefWidth="510.0" spacing="5.0" styleClass="menuBorder">
+                           <children>
+                              <VBox prefHeight="316.0" prefWidth="473.0" styleClass="settingsBorder" stylesheets="@../../../../../../DoubleSlash/KeepTime/src/main/resources/css/settingsv2.css">
+                                 <children>
+                                    <HBox prefHeight="50.0" prefWidth="471.0" spacing="10.0">
+                                       <children>
+                                          <Label alignment="TOP_LEFT" contentDisplay="TOP" prefWidth="100.0" text="Available" textFill="WHITE" />
+                                          <ColorPicker fx:id="availableColor">
+                                             <value>
+                                                <Color green="1.0" />
+                                             </value>
+                                          </ColorPicker>
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="10.0" />
+                                    <Line endX="441.4644470214844" endY="-1.823902130126953E-5" startX="806.3431396484375" startY="-7.152557373046875E-7" strokeWidth="3.0">
+                                       <stroke>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop>
+                                                   <color>
+                                                      <Color red="0.08235294371843338" green="0.18431372940540314" blue="0.29019609093666077" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="1.0">
+                                                   <color>
+                                                      <Color red="0.019607843831181526" green="0.27450981736183167" blue="0.19607843458652496" />
+                                                   </color>
+                                                </Stop>
+                                             </stops>
+                                          </LinearGradient>
+                                       </stroke>
+                                    </Line>
+                                    <HBox prefHeight="50.0" prefWidth="471.0" spacing="10.0">
+                                       <children>
+                                          <Label alignment="TOP_LEFT" contentDisplay="TOP" prefWidth="100.0" text="Busy" textFill="WHITE" />
+                                          <ColorPicker fx:id="busyColor">
+                                             <value>
+                                                <Color red="1.0" />
+                                             </value>
+                                          </ColorPicker>
+                                       </children>
+                                    </HBox>
+                                    <Line endX="441.4644470214844" endY="-1.823902130126953E-5" startX="806.3431396484375" startY="-7.152557373046875E-7" strokeWidth="3.0">
+                                       <stroke>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop>
+                                                   <color>
+                                                      <Color red="0.08235294371843338" green="0.18431372940540314" blue="0.29019609093666077" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="1.0">
+                                                   <color>
+                                                      <Color red="0.019607843831181526" green="0.27450981736183167" blue="0.19607843458652496" />
+                                                   </color>
+                                                </Stop>
+                                             </stops>
+                                          </LinearGradient>
+                                       </stroke>
+                                    </Line>
+                                    <HBox prefHeight="50.0" spacing="10.0">
+                                       <children>
+                                          <Label alignment="TOP_LEFT" contentDisplay="TOP" prefWidth="100.0" text="DoNotDisturb" textFill="WHITE" />
+                                          <ColorPicker fx:id="doNotDisturbColor">
+                                             <value>
+                                                <Color red="1.0" />
+                                             </value>
+                                          </ColorPicker>
+                                       </children>
+                                    </HBox>
+                                    <Line endX="441.4644470214844" endY="-1.823902130126953E-5" startX="806.3431396484375" startY="-7.152557373046875E-7" strokeWidth="3.0">
+                                       <stroke>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop>
+                                                   <color>
+                                                      <Color red="0.08235294371843338" green="0.18431372940540314" blue="0.29019609093666077" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="1.0">
+                                                   <color>
+                                                      <Color red="0.019607843831181526" green="0.27450981736183167" blue="0.19607843458652496" />
+                                                   </color>
+                                                </Stop>
+                                             </stops>
+                                          </LinearGradient>
+                                       </stroke>
+                                    </Line>
+                                    <HBox prefHeight="50.0" spacing="10.0">
+                                       <children>
+                                          <Label alignment="TOP_LEFT" contentDisplay="TOP" prefWidth="100.0" text="BeRightBack" textFill="WHITE" />
+                                          <ColorPicker fx:id="beRightBackColor">
+                                             <value>
+                                                <Color red="1.0" green="0.7166666388511658" />
+                                             </value>
+                                          </ColorPicker>
+                                       </children>
+                                    </HBox>
+                                    <Line endX="441.4644470214844" endY="-1.823902130126953E-5" startX="806.3431396484375" startY="-7.152557373046875E-7" strokeWidth="3.0">
+                                       <stroke>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop>
+                                                   <color>
+                                                      <Color red="0.08235294371843338" green="0.18431372940540314" blue="0.29019609093666077" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="1.0">
+                                                   <color>
+                                                      <Color red="0.019607843831181526" green="0.27450981736183167" blue="0.19607843458652496" />
+                                                   </color>
+                                                </Stop>
+                                             </stops>
+                                          </LinearGradient>
+                                       </stroke>
+                                    </Line>
+                                    <HBox prefHeight="72.0" prefWidth="471.0" spacing="10.0">
+                                       <children>
+                                          <Label alignment="TOP_LEFT" contentDisplay="TOP" prefWidth="100.0" text="Away" textFill="WHITE" />
+                                          <ColorPicker fx:id="AwayColor">
+                                             <value>
+                                                <Color red="1.0" green="0.7176470756530762" />
+                                             </value>
+                                          </ColorPicker>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="72.0" prefWidth="471.0" spacing="10.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onMouseClicked="#saveButton" prefHeight="35.0" prefWidth="395.0" style="-fx-background-color: grey;" text="Save" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</VBox>
