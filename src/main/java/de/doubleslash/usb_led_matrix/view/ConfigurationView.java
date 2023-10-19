@@ -36,6 +36,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javafx.event.Event;
+import javafx.scene.layout.Pane;
 
 public class ConfigurationView {
    private static final int POLLING_INTERVALL_SECONDS = 10;
@@ -85,6 +87,8 @@ public class ConfigurationView {
 
    @FXML
    private Slider brightnessSlider;
+
+   SettingsView settingsView;
 
    private final Runnable manualModeConnectionCheckRunnable = () -> {
       LOG.info("Manual mode started.");
@@ -475,5 +479,54 @@ public class ConfigurationView {
    @FXML
    void toggleDarkMode(final MouseEvent event) {
       Settings.Dark(scene);
+   }
+
+
+   @FXML
+   void aboutButton() {
+      final FXMLLoader fxmlLoader = new FXMLLoader(Resources.INFO_VIEW.getResource());
+      try {
+         usbAdapter.requestVersion();
+         final Parent root = fxmlLoader.load();
+         final VersionView versionView = fxmlLoader.getController();
+         final Scene scene = new Scene(root);
+         versionView.setScene(scene);
+         versionView.instantiate(usbAdapter.versionProperty());
+
+         popUpStage.setScene(scene);
+         popUpStage.getIcons().add(image);
+         popUpStage.setTitle("Info");
+         popUpStage.setMinWidth(328);
+         popUpStage.setMinHeight(193);
+         popUpStage.setMaxHeight(193);
+         popUpStage.setMaxWidth(328);
+         popUpStage.setResizable(false);
+         popUpStage.showAndWait();
+      } catch (final IOException | SerialPortException e) {
+         LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
+      }   }
+
+
+   @FXML
+   void settingsButton() {
+      final FXMLLoader fxmlLoader = new FXMLLoader(Resources.SETTINGS_VIEW.getResource());
+      try {
+         Stage stage = new Stage();
+         usbAdapter.requestVersion();
+         final Parent root = fxmlLoader.load();
+         final SettingsView settingsView1 = fxmlLoader.getController();
+         final Scene scene = new Scene(root);
+
+         settingsView1.initialize();
+
+         stage.setTitle("Einstellungen");
+         stage.setScene(scene);
+         stage.show();
+      } catch (final IOException e) {
+         LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
+      } catch (SerialPortException e) {
+         throw new RuntimeException(e);
+      }
+
    }
 }
