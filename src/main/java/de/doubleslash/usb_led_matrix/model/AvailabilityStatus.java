@@ -22,6 +22,10 @@ public enum AvailabilityStatus {
 
    private Color color;
 
+   public void setColor(Color c){
+      this.color=c;
+   }
+
    private AvailabilityStatus(final Color color) {
  this.color = color;
 
@@ -32,14 +36,7 @@ public enum AvailabilityStatus {
       return color;
    }
 
-//   public Color getColorForAvailabilityStatus() {
-//      AvailabilityStatus status = null;
-//      if (status == AvailabilityStatus.Available) {
-//         return Color.PINK; // Ersetzen Sie YOUR_DESIRED_COLOR durch die gewünschte Farbe für Offline
-//      } else {
-//         return status.getColor();
-//      }
-//   }
+
 
 
 

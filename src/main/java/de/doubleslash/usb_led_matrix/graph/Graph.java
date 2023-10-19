@@ -198,13 +198,6 @@ public class Graph {
    }
 
    public Color getStatusColorFromTeams() throws IOException, InterruptedException {
-
-      //      String propertyName = "TeamsColor.property";      //
-      //      String propertyValue = System.getProperty(propertyName);
-
-      String filePath = "TeamsColor.property";
-      File file = new File(filePath);
-
       String teamsStatus = getTeamsStatus();
       AvailabilityStatus availabilityStatus = null;
 
@@ -220,41 +213,6 @@ public class Graph {
       } catch (final IllegalArgumentException e) {
          LOG.warn("Unknown availability '{}'.", teamsStatus, e);
       }
-//      if (!file.exists()) {
-//         return availabilityStatus.getColor();
-//      }
-      if (availabilityStatus == AvailabilityStatus.Available) {
-         return getTeamsStatus("available");
-      }
-      if (availabilityStatus == AvailabilityStatus.Away) {
-         return getTeamsStatus("away");
-      }
-      if (availabilityStatus == AvailabilityStatus.BeRightBack) {
-         return getTeamsStatus("beRightBack");
-      }
-      if (availabilityStatus == AvailabilityStatus.Busy) {
-         return getTeamsStatus("busy");
-      }
-      if (availabilityStatus == AvailabilityStatus.DoNotDisturb) {
-         return getTeamsStatus("doNotDisturb");
-      }
-
       return availabilityStatus.getColor();
-      
-   }
-
-   public Color getTeamsStatus(String teamsStatus) throws IOException {
-      final String fileName = "TeamsColor.properties";
-      try {
-         final InputStream input = new FileInputStream(new File(fileName));
-         final Properties properties = new Properties();
-         properties.load(input);
-         final Color color = Color.valueOf(properties.getProperty(teamsStatus));
-
-         System.out.println(color);
-
-         return color;
-      } finally {
-      }
    }
 }

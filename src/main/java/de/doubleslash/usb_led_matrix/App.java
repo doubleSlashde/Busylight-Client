@@ -142,6 +142,9 @@ public class App extends Application {
       });
    }
 
+
+
+
    @Override
    public void stop() {
       usbAdapter.closePort();

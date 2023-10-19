@@ -1,6 +1,8 @@
 package de.doubleslash.usb_led_matrix;
 
+import de.doubleslash.usb_led_matrix.model.AvailabilityStatus;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -16,6 +18,12 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,6 +86,7 @@ public class Settings {
    }
 
    public static void handleParameters(final String[] args) {
+      loadProperty();
       final CommandLineParser parser = new DefaultParser();
       final Options options = createOptions();
 
@@ -281,4 +290,12 @@ public class Settings {
       timeoutInMinutes = defaultTimeoutInMinutes;
       numberOfLeds = defaultNumberOfLeds;
    }
+
+
+
+
+
+   public static void loadProperty(){
+      AvailabilityStatus.Available.setColor(Color.MAGENTA);
+         }
 }
