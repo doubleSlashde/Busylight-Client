@@ -89,6 +89,8 @@ public class ConfigurationView {
    @FXML
    private Slider brightnessSlider;
 
+   SettingsView settingsView;
+
    private final Runnable manualModeConnectionCheckRunnable = () -> {
       LOG.info("Manual mode started.");
       while (true) {
@@ -490,19 +492,40 @@ public class ConfigurationView {
          LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
       }   }
 
+
    @FXML
    void settingsButton() {
+//      try {
+//         Stage stage = new Stage();
+//         FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/Setting.fxml"));
+//         Parent root = loader.load();
+//         Scene scene = new Scene(root);
+//         stage.setTitle("Einstellungen");
+//         stage.setScene(scene);
+//         stage.show();
+//      } catch (Exception e) {
+//         e.printStackTrace();
+//      }
+
+      final FXMLLoader fxmlLoader = new FXMLLoader(Resources.SETTINGS_VIEW.getResource());
       try {
          Stage stage = new Stage();
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/Setting.fxml"));
-         Parent root = loader.load();
-         Scene scene = new Scene(root);
+         usbAdapter.requestVersion();
+         final Parent root = fxmlLoader.load();
+         final SettingsView settingsView1 = fxmlLoader.getController();
+         final Scene scene = new Scene(root);
+
+         settingsView1.initialize();
+
          stage.setTitle("Einstellungen");
          stage.setScene(scene);
          stage.show();
-      } catch (Exception e) {
-         e.printStackTrace();
+      } catch (final IOException e) {
+         LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
+      } catch (SerialPortException e) {
+         throw new RuntimeException(e);
       }
+
    }
 
 

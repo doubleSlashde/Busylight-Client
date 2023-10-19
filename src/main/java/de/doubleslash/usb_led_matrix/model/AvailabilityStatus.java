@@ -51,13 +51,13 @@ public enum AvailabilityStatus {
          properties.load(input);
          final Color availableColor = Color.valueOf(properties.getProperty("available"));
          final Color awayColor = Color.valueOf(properties.getProperty("away"));
-         final Color beRightBackColor = Color.valueOf(properties.getProperty("beRightBack"));
+         final Color beRightBack = Color.valueOf(properties.getProperty("beRightBack"));
          final Color busyColor = Color.valueOf(properties.getProperty("busy"));
          final Color doNotDisturbColor = Color.valueOf(properties.getProperty("doNotDisturb"));
 
          System.out.println(availableColor);
          System.out.println(awayColor);
-         System.out.println(beRightBackColor);
+         System.out.println(beRightBack);
          System.out.println(busyColor);
          System.out.println(doNotDisturbColor);
       } catch (FileNotFoundException e) {
