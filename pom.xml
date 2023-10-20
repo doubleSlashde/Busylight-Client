@@ -11,7 +11,7 @@
     <junit.version>5.10.0</junit.version>
     <mockito.version>5.4.0</mockito.version>
     <java.version>17</java.version>
-    <javafx.version>20.0.1</javafx.version>
+    <javafx.version>21.0.1</javafx.version>
 
   </properties>
   <dependencies>
