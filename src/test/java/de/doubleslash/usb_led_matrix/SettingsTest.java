@@ -117,41 +117,14 @@ class SettingsTest {
       assertThat(Settings.getCom()).isEqualTo("COM7");
    }
 
-
-
    @Test
-   public void GetColorAvailableTest() {
-      AvailabilityStatus status = AvailabilityStatus.Available;
-      assertEquals(Color.GREEN, status.getColor());
-   }
-
-   @Test
-   public void GetColorAwayTest() {
-      AvailabilityStatus status = AvailabilityStatus.Away;
-      assertEquals(Color.ORANGE, status.getColor());
-   }
-
-   @Test
-   public void GetColorBeRightBackTest() {
-      AvailabilityStatus status = AvailabilityStatus.BeRightBack;
-      assertEquals(Color.ORANGE, status.getColor());
-   }
-
-   @Test
-   public void GetColorDoNotDisturbTest() {
-      AvailabilityStatus status = AvailabilityStatus.DoNotDisturb;
-      assertEquals(Color.RED, status.getColor());
-   }
-   @Test
-   public void GetColorBusyTest() {
-      AvailabilityStatus status = AvailabilityStatus.Busy;
-      assertEquals(Color.RED, status.getColor());
-   }
-
-   @Test
-   public void GetColorOfflineTest() {
-      AvailabilityStatus status = AvailabilityStatus.Offline;
-      assertEquals(Color.BLACK, status.getColor());
+   public void testGetColor() {
+      assertEquals(Color.GREEN, AvailabilityStatus.Available.getColor());
+      assertEquals(Color.ORANGE, AvailabilityStatus.Away.getColor());
+      assertEquals(Color.ORANGE, AvailabilityStatus.BeRightBack.getColor());
+      assertEquals(Color.RED, AvailabilityStatus.Busy.getColor());
+      assertEquals(Color.RED, AvailabilityStatus.DoNotDisturb.getColor());
+      assertEquals(Color.BLACK, AvailabilityStatus.Offline.getColor());
    }
 
    @ParameterizedTest
@@ -160,42 +133,4 @@ class SettingsTest {
       status.setColor(Color.PINK);
       assertEquals(Color.PINK, status.getColor());
    }
-
-
-//   @Test
-//   public void setColorTest() {
-//      AvailabilityStatus status = AvailabilityStatus.Available;
-//      status.setColor(Color.BLUE);
-//      assertEquals(Color.BLUE, status.getColor());
-//   }
-//
-//   @Test
-//   public void setColorAwayTest() {
-//      AvailabilityStatus status = AvailabilityStatus.Away;
-//      status.setColor(Color.BLUE);
-//      assertEquals(Color.BLUE, status.getColor());
-//   }
-//
-//   @Test
-//   public void setColorBeRightBackTest() {
-//      AvailabilityStatus status = AvailabilityStatus.BeRightBack;
-//      status.setColor(Color.BLUE);
-//      assertEquals(Color.BLUE, status.getColor());
-//   }
-//
-//   @Test
-//   public void setColorBusyTest() {
-//      AvailabilityStatus status = AvailabilityStatus.Busy;
-//      status.setColor(Color.BLUE);
-//      assertEquals(Color.BLUE, status.getColor());
-//   }
-//   @Test
-//   public void setColorDoNotDisturbTest() {
-//      AvailabilityStatus status = AvailabilityStatus.DoNotDisturb;
-//      status.setColor(Color.BLUE);
-//      assertEquals(Color.BLUE, status.getColor());
-//   }
-//
-
-
 }
