@@ -11,7 +11,7 @@ variables:
 build:
   stage: build
   script:
-    - mvn clean package -Dproject.version=${VERSION}
+    - mvn clean package -Dproject.version=${VERSION} -Dmaven.compiler.source=17 -Dmaven.compiler.target=17
   artifacts:
     name: "busylight_client.jar"
     reports:
