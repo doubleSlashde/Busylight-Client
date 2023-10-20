@@ -36,8 +36,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javafx.event.Event;
-import javafx.scene.layout.Pane;
 
 public class ConfigurationView {
    private static final int POLLING_INTERVALL_SECONDS = 10;
@@ -87,8 +85,6 @@ public class ConfigurationView {
 
    @FXML
    private Slider brightnessSlider;
-
-   SettingsView settingsView;
 
    private final Runnable manualModeConnectionCheckRunnable = () -> {
       LOG.info("Manual mode started.");
@@ -481,7 +477,6 @@ public class ConfigurationView {
       Settings.Dark(scene);
    }
 
-
    @FXML
    void aboutButton() {
       final FXMLLoader fxmlLoader = new FXMLLoader(Resources.INFO_VIEW.getResource());
@@ -504,8 +499,8 @@ public class ConfigurationView {
          popUpStage.showAndWait();
       } catch (final IOException | SerialPortException e) {
          LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
-      }   }
-
+      }
+   }
 
    @FXML
    void settingsButton() {

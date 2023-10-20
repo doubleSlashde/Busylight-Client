@@ -25,5 +25,4 @@ public enum AvailabilityStatus {
    public Color getColor() {
       return color;
    }
-
 }

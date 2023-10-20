@@ -2,7 +2,6 @@ package de.doubleslash.usb_led_matrix;
 
 import de.doubleslash.usb_led_matrix.model.AvailabilityStatus;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
