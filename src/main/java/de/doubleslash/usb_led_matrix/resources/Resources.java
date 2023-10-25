@@ -7,7 +7,7 @@ public enum Resources {
    CONFIGURATION_VIEW("/layouts/configuration.fxml"),
    AUTHENTICATION_VIEW("/layouts/authentication.fxml"),
    INFO_VIEW("/layouts/version.fxml"),
-   SETTINGS_VIEW ("/layouts/Setting.fxml");
+   SETTINGS_VIEW ("/layouts/setting.fxml");
 
    private final String location;
 

@@ -116,16 +116,6 @@ class SettingsTest {
       assertThat(Settings.getCom()).isEqualTo("COM7");
    }
 
-   @Test
-   public void testGetColor() {
-      assertEquals(Color.GREEN, AvailabilityStatus.Available.getColor());
-      assertEquals(Color.ORANGE, AvailabilityStatus.Away.getColor());
-      assertEquals(Color.ORANGE, AvailabilityStatus.BeRightBack.getColor());
-      assertEquals(Color.RED, AvailabilityStatus.Busy.getColor());
-      assertEquals(Color.RED, AvailabilityStatus.DoNotDisturb.getColor());
-      assertEquals(Color.BLACK, AvailabilityStatus.Offline.getColor());
-   }
-
    @ParameterizedTest
    @EnumSource(AvailabilityStatus.class)
    public void setColorTest(AvailabilityStatus status) {

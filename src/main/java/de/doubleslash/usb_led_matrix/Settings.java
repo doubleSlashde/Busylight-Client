@@ -19,16 +19,6 @@ import org.slf4j.LoggerFactory;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.doubleslash.usb_led_matrix.model.AvailabilityStatus;
-import javafx.scene.paint.Color;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 public class Settings {
    private static final Logger LOG = LoggerFactory.getLogger(Settings.class);
    private static final String COM_PORT_OPTION = "port";

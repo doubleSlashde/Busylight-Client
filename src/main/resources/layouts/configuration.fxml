@@ -27,17 +27,12 @@
       <menus>
         <Menu mnemonicParsing="false" text="Busylight">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#settingsButton" text="Settings" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Delete" />
+            <MenuItem mnemonicParsing="false" onAction="#settingsInformation" text="Settings" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#aboutButton" text="About" />
+            <MenuItem mnemonicParsing="false" onAction="#aboutInfo" text="About" />
           </items>
         </Menu>
       </menus>
@@ -65,30 +60,10 @@
             </LinearGradient>
           </textFill>
         </Label>
-        <AnchorPane prefHeight="63.0" prefWidth="159.0">
+        <AnchorPane prefHeight="60.0" prefWidth="96.0">
           <children>
             <Button fx:id="darkModeButton" layoutX="81.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#toggleDarkMode" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: black; -fx-background-radius: 30;" styleClass="darkMode" text="Dark Mode" textFill="WHITE" visible="false" />
             <Button fx:id="lightModeButton" layoutX="81.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#toggleLightMode" prefHeight="26.0" prefWidth="90.0" style="-fx-background-radius: 30;" styleClass="lightMode" text="Light Mode" />
-          </children>
-        </AnchorPane>
-        <AnchorPane prefHeight="64.0" prefWidth="59.0">
-          <children>
-            <ImageView fitHeight="62.0" fitWidth="65.0" onMouseClicked="#informationImageButton" pickOnBounds="true" styleClass="darkModeImage">
-              <image>
-                <Image url="@../images/information.png" />
-              </image>
-              <cursor>
-                <Cursor fx:constant="HAND" />
-              </cursor>
-            </ImageView>
-            <ImageView fitHeight="62.0" fitWidth="65.0" onMouseClicked="#informationImageButton" styleClass="lightModeImage" visible="false">
-              <image>
-                <Image url="@../images/information_light.png" />
-              </image>
-              <cursor>
-                <Cursor fx:constant="HAND" />
-              </cursor>
-            </ImageView>
           </children>
         </AnchorPane>
       </children>

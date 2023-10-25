@@ -478,7 +478,7 @@ public class ConfigurationView {
    }
 
    @FXML
-   void aboutButton() {
+   void aboutInfo() {
       final FXMLLoader fxmlLoader = new FXMLLoader(Resources.INFO_VIEW.getResource());
       try {
          usbAdapter.requestVersion();
@@ -496,14 +496,14 @@ public class ConfigurationView {
          popUpStage.setMaxHeight(193);
          popUpStage.setMaxWidth(328);
          popUpStage.setResizable(false);
-         popUpStage.showAndWait();
+         popUpStage.show();
       } catch (final IOException | SerialPortException e) {
          LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
       }
    }
 
    @FXML
-   void settingsButton() {
+   void settingsInformation() {
       final FXMLLoader fxmlLoader = new FXMLLoader(Resources.SETTINGS_VIEW.getResource());
       try {
          Stage stage = new Stage();
@@ -515,7 +515,7 @@ public class ConfigurationView {
          settingsView1.initialize();
 
          stage.setTitle("Einstellungen");
-         stage.setScene(scene);
+           stage.setScene(scene);
          stage.show();
       } catch (final IOException e) {
          LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
