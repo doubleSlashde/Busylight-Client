@@ -36,7 +36,7 @@ public class SettingsView {
    @FXML
    private ColorPicker doNotDisturbColor;
 
-   String filePath = "TeamsColor.properties";
+   String filePath = "settings.properties";
 
    @FXML
    public void initialize() throws IOException {
@@ -54,7 +54,7 @@ public class SettingsView {
       AvailabilityStatus.BeRightBack.setColor((beRightBack.getValue()));
       AvailabilityStatus.AvailableIdle.setColor(availableColor.getValue());
 
-      try (final FileWriter fw = new FileWriter("TeamsColor.properties")) {
+      try (final FileWriter fw = new FileWriter("settings.properties")) {
          final Properties p = new Properties();
          p.setProperty("away", String.valueOf(AwayColor.getValue()));
          p.setProperty("doNotDisturb", String.valueOf(doNotDisturbColor.getValue()));

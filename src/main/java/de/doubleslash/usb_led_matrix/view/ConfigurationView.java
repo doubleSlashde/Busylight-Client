@@ -491,11 +491,8 @@ public class ConfigurationView {
          popUpStage.setScene(scene);
          popUpStage.getIcons().add(image);
          popUpStage.setTitle("Info");
-         popUpStage.setMinWidth(328);
-         popUpStage.setMinHeight(193);
-         popUpStage.setMaxHeight(193);
-         popUpStage.setMaxWidth(328);
          popUpStage.setResizable(false);
+         popUpStage.initModality(Modality.APPLICATION_MODAL);
          popUpStage.show();
       } catch (final IOException | SerialPortException e) {
          LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
@@ -507,20 +504,19 @@ public class ConfigurationView {
       final FXMLLoader fxmlLoader = new FXMLLoader(Resources.SETTINGS_VIEW.getResource());
       try {
          Stage stage = new Stage();
-         usbAdapter.requestVersion();
          final Parent root = fxmlLoader.load();
-         final SettingsView settingsView1 = fxmlLoader.getController();
+         final SettingsView settingsView = fxmlLoader.getController();
          final Scene scene = new Scene(root);
 
-         settingsView1.initialize();
+         settingsView.initialize();
 
-         stage.setTitle("Einstellungen");
-           stage.setScene(scene);
+         stage.setTitle("Settings");
+         stage.setScene(scene);
+         stage.setResizable(false);
+         stage.initModality(Modality.APPLICATION_MODAL);
          stage.show();
       } catch (final IOException e) {
-         LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
-      } catch (SerialPortException e) {
-         throw new RuntimeException(e);
+         LOG.error("Could not load view '{}'. Exiting.", Resources.SETTINGS_VIEW, e);
       }
 
    }
