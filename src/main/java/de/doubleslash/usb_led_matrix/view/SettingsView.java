@@ -41,7 +41,7 @@ public class SettingsView {
    }
 
    @FXML
-   void saveButton(MouseEvent event) {
+   void saveButton() {
       AvailabilityStatus.Away.setColor(awayColor.getValue());
       AvailabilityStatus.DoNotDisturb.setColor(doNotDisturbColor.getValue());
       AvailabilityStatus.Busy.setColor(busyColor.getValue());
