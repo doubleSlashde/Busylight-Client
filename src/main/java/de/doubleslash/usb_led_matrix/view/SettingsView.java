@@ -9,20 +9,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Properties;
 
 public class SettingsView {
    private static final Logger LOG = LoggerFactory.getLogger(ConfigurationView.class);
 
    @FXML
-   private ColorPicker AwayColor;
+   private ColorPicker awayColor;
 
    @FXML
    private ColorPicker availableColor;
@@ -45,7 +42,7 @@ public class SettingsView {
 
    @FXML
    void saveButton(MouseEvent event) {
-      AvailabilityStatus.Away.setColor(AwayColor.getValue());
+      AvailabilityStatus.Away.setColor(awayColor.getValue());
       AvailabilityStatus.DoNotDisturb.setColor(doNotDisturbColor.getValue());
       AvailabilityStatus.Busy.setColor(busyColor.getValue());
       AvailabilityStatus.BusyIdle.setColor(busyColor.getValue());
@@ -56,7 +53,7 @@ public class SettingsView {
 
       try (final FileWriter fw = new FileWriter("settings.properties")) {
          final Properties p = new Properties();
-         p.setProperty("away", String.valueOf(AwayColor.getValue()));
+         p.setProperty("away", String.valueOf(awayColor.getValue()));
          p.setProperty("doNotDisturb", String.valueOf(doNotDisturbColor.getValue()));
          p.setProperty("busy", String.valueOf(busyColor.getValue()));
          p.setProperty("busyIdle", String.valueOf(busyColor.getValue()));
@@ -86,8 +83,7 @@ public class SettingsView {
             busyColor.setValue(busyStatusColor);
             doNotDisturbColor.setValue(doNotDisturbStatusColor);
             beRightBack.setValue(beRightBackStatusColor);
-            AwayColor.setValue(awayStatusColor);
-
+            awayColor.setValue(awayStatusColor);
          } catch (FileNotFoundException e) {
             LOG.error("File was not Found");
          }

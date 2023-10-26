@@ -7,7 +7,7 @@ public enum Resources {
    CONFIGURATION_VIEW("/layouts/configuration.fxml"),
    AUTHENTICATION_VIEW("/layouts/authentication.fxml"),
    INFO_VIEW("/layouts/version.fxml"),
-   SETTINGS_VIEW ("/layouts/setting.fxml");
+   SETTINGS_VIEW ("/layouts/settings.fxml");
 
    private final String location;
 
@@ -17,9 +17,5 @@ public enum Resources {
 
    public URL getResource() {
       return Resources.class.getResource(location);
-   }
-
-   public InputStream getResourceAsStream() {
-      return Resources.class.getResourceAsStream(location);
    }
 }

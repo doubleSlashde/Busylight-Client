@@ -27,12 +27,12 @@
       <menus>
         <Menu mnemonicParsing="false" text="Busylight">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#settingsInformation" text="Settings" />
+            <MenuItem mnemonicParsing="false" onAction="#showSettingsView" text="Settings" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#aboutInfo" text="About" />
+            <MenuItem mnemonicParsing="false" onAction="#showInfoView" text="About" />
           </items>
         </Menu>
       </menus>

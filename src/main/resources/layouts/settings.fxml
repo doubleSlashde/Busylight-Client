@@ -187,7 +187,7 @@
                         <HBox prefHeight="55.0" prefWidth="471.0" spacing="10.0">
                           <children>
                             <Label alignment="TOP_LEFT" contentDisplay="TOP" prefWidth="100.0" text="Away" textFill="WHITE" />
-                            <ColorPicker fx:id="AwayColor">
+                            <ColorPicker fx:id="awayColor">
                               <value>
                                 <Color red="1.0" green="0.7176470756530762" />
                               </value>

@@ -404,31 +404,6 @@ public class ConfigurationView {
       startNamedThreadWithRunnable(reconnectionCheckRunnable, "reconnectionThread");
    }
 
-   @FXML
-   void informationVersion(final MouseEvent event) throws SerialPortException {
-      final FXMLLoader fxmlLoader = new FXMLLoader(Resources.INFO_VIEW.getResource());
-      try {
-         usbAdapter.requestVersion();
-         final Parent root = fxmlLoader.load();
-         final VersionView versionView = fxmlLoader.getController();
-         final Scene scene = new Scene(root);
-         versionView.setScene(scene);
-         versionView.instantiate(usbAdapter.versionProperty());
-
-         popUpStage.setScene(scene);
-         popUpStage.getIcons().add(image);
-         popUpStage.setTitle("Info");
-         popUpStage.setMinWidth(328);
-         popUpStage.setMinHeight(193);
-         popUpStage.setMaxHeight(193);
-         popUpStage.setMaxWidth(328);
-         popUpStage.setResizable(false);
-         popUpStage.show();
-      } catch (final IOException e) {
-         LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
-      }
-   }
-
    private void startNamedThreadWithRunnable(final Runnable runnable, final String name) {
       if (currentlyRunningThread != null && currentlyRunningThread.isAlive()) {
          currentlyRunningThread.interrupt();
@@ -478,7 +453,7 @@ public class ConfigurationView {
    }
 
    @FXML
-   void aboutInfo() {
+   void showInfoView() {
       final FXMLLoader fxmlLoader = new FXMLLoader(Resources.INFO_VIEW.getResource());
       try {
          usbAdapter.requestVersion();
@@ -500,15 +475,12 @@ public class ConfigurationView {
    }
 
    @FXML
-   void settingsInformation() {
+   void showSettingsView() {
       final FXMLLoader fxmlLoader = new FXMLLoader(Resources.SETTINGS_VIEW.getResource());
       try {
          Stage stage = new Stage();
          final Parent root = fxmlLoader.load();
-         final SettingsView settingsView = fxmlLoader.getController();
          final Scene scene = new Scene(root);
-
-         settingsView.initialize();
 
          stage.setTitle("Settings");
          stage.setScene(scene);
@@ -518,6 +490,5 @@ public class ConfigurationView {
       } catch (final IOException e) {
          LOG.error("Could not load view '{}'. Exiting.", Resources.SETTINGS_VIEW, e);
       }
-
    }
 }

@@ -1,6 +1,7 @@
 package de.doubleslash.usb_led_matrix.model;
 
 import javafx.scene.paint.Color;
+
 public enum AvailabilityStatus {
    Available(Color.GREEN),
    AvailableIdle(Color.GREEN),
