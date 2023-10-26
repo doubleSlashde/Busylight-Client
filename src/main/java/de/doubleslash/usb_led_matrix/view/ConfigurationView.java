@@ -405,7 +405,7 @@ public class ConfigurationView {
    }
 
    @FXML
-   void informationImageButton(final MouseEvent event) throws SerialPortException {
+   void informationVersion(final MouseEvent event) throws SerialPortException {
       final FXMLLoader fxmlLoader = new FXMLLoader(Resources.INFO_VIEW.getResource());
       try {
          usbAdapter.requestVersion();
@@ -423,7 +423,7 @@ public class ConfigurationView {
          popUpStage.setMaxHeight(193);
          popUpStage.setMaxWidth(328);
          popUpStage.setResizable(false);
-         popUpStage.showAndWait();
+         popUpStage.show();
       } catch (final IOException e) {
          LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
       }
