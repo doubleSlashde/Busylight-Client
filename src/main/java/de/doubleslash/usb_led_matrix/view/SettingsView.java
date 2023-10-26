@@ -63,7 +63,7 @@ public class SettingsView {
          p.setProperty("beRightBack", String.valueOf(beRightBack.getValue()));
          p.store(fw, "");
       } catch (IOException e) {
-
+         LOG.error("Error while saving settings: " + e.getMessage());
       }
    }
 
