@@ -4,7 +4,7 @@ public class BusyLight {
    public static void main(final String[] args) {
       final DefaultExceptionHandler defaultExceptionHandler = new DefaultExceptionHandler();
       defaultExceptionHandler.register();
-      Settings.handleParameters(args);
+      CommandLineOptions.handleParameters(args);
       App.launchApplication(args);
    }
 }

@@ -51,7 +51,7 @@ public class Graph {
             tokenURI = String.format("https://login.microsoftonline.com/%s/oauth2/v2.0/token", tenantID);
          }
       } catch (IOException e) {
-         LOG.error("Could not load properties from file '" + refreshFile.getAbsolutePath() + "': " + e);
+         LOG.error("Could not load properties from file '" + refreshFile.getAbsolutePath() + "': ", e);
       }
    }
 

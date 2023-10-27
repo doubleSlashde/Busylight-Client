@@ -42,7 +42,7 @@ public class App extends Application {
       LOG.info("Starting application...");
       Platform.setImplicitExit(false);
       primaryStage.setTitle("Configuration");
-
+      Settings.loadProperty();
       final Properties properties = new Properties();
       properties.load(this.getClass().getResourceAsStream("/busylight.properties"));
 

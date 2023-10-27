@@ -17,7 +17,4 @@
 .lightMode, .darkModeImage{
 	visibility: hidden;
 }
-
-.darkMode, .lightModeImage{
-visibility:	visible; 
 }
