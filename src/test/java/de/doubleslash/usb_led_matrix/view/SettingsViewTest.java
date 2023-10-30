@@ -68,11 +68,11 @@ class SettingsViewTest {
       int b = 0;
       final Map<AvailabilityStatus, Color> expectedColors = new HashMap<>();
       expectedColors.put(AvailabilityStatus.Available, Color.rgb(r++, g++, b++));
-      expectedColors.put(AvailabilityStatus.AvailableIdle, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.AvailableIdle, expectedColors.get(AvailabilityStatus.Available));
       expectedColors.put(AvailabilityStatus.Away, Color.rgb(r++, g++, b++));
       expectedColors.put(AvailabilityStatus.BeRightBack, Color.rgb(r++, g++, b++));
       expectedColors.put(AvailabilityStatus.Busy, Color.rgb(r++, g++, b++));
-      expectedColors.put(AvailabilityStatus.BusyIdle, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.BusyIdle, expectedColors.get(AvailabilityStatus.Busy));
       expectedColors.put(AvailabilityStatus.DoNotDisturb, Color.rgb(r++, g++, b++));
 
       ((ColorPicker) availableColor.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.Available));
@@ -103,11 +103,11 @@ class SettingsViewTest {
       int b = 0;
       final Map<AvailabilityStatus, Color> expectedColors = new HashMap<>();
       expectedColors.put(AvailabilityStatus.Available, Color.rgb(r++, g++, b++));
-      expectedColors.put(AvailabilityStatus.AvailableIdle, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.AvailableIdle, expectedColors.get(AvailabilityStatus.Available));
       expectedColors.put(AvailabilityStatus.Away, Color.rgb(r++, g++, b++));
       expectedColors.put(AvailabilityStatus.BeRightBack, Color.rgb(r++, g++, b++));
       expectedColors.put(AvailabilityStatus.Busy, Color.rgb(r++, g++, b++));
-      expectedColors.put(AvailabilityStatus.BusyIdle, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.BusyIdle, expectedColors.get(AvailabilityStatus.Busy));
       expectedColors.put(AvailabilityStatus.DoNotDisturb, Color.rgb(r++, g++, b++));
 
       ((ColorPicker) availableColor.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.Available));

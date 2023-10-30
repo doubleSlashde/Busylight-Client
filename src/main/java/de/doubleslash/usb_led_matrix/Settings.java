@@ -21,18 +21,18 @@ public class Settings {
          properties.load(fr);
          setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.Available,
                properties.getProperty(AvailabilityStatus.Available.getPropertyKey()));
-         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.DoNotDisturb,
-               properties.getProperty(AvailabilityStatus.DoNotDisturb.getPropertyKey()));
+         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.AvailableIdle,
+               properties.getProperty(AvailabilityStatus.AvailableIdle.getPropertyKey()));
          setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.Away,
                properties.getProperty(AvailabilityStatus.Away.getPropertyKey()));
+         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.BeRightBack,
+               properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()));
          setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.Busy,
                properties.getProperty(AvailabilityStatus.Busy.getPropertyKey()));
          setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.BusyIdle,
                properties.getProperty(AvailabilityStatus.BusyIdle.getPropertyKey()));
-         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.AvailableIdle,
-               properties.getProperty(AvailabilityStatus.AvailableIdle.getPropertyKey()));
-         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.BeRightBack,
-               properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()));
+         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.DoNotDisturb,
+               properties.getProperty(AvailabilityStatus.DoNotDisturb.getPropertyKey()));
       } catch (IOException e) {
          LOG.error("Properties could not be loaded from file '{}'", filePath, e);
       }
@@ -41,14 +41,14 @@ public class Settings {
    public static void saveProperty() {
       try (final FileWriter fw = new FileWriter(filePath)) {
          final Properties p = new Properties();
-         p.setProperty(AvailabilityStatus.Away.getPropertyKey(), String.valueOf(AvailabilityStatus.Away.getColor()));
-         p.setProperty(AvailabilityStatus.DoNotDisturb.getPropertyKey(),
-               String.valueOf(AvailabilityStatus.DoNotDisturb.getColor()));
-         p.setProperty(AvailabilityStatus.Busy.getPropertyKey(), String.valueOf(AvailabilityStatus.Busy.getColor()));
          p.setProperty(AvailabilityStatus.Available.getPropertyKey(),
                String.valueOf(AvailabilityStatus.Available.getColor()));
+         p.setProperty(AvailabilityStatus.Away.getPropertyKey(), String.valueOf(AvailabilityStatus.Away.getColor()));
          p.setProperty(AvailabilityStatus.BeRightBack.getPropertyKey(),
-               String.valueOf(AvailabilityStatus.Available.getColor()));
+               String.valueOf(AvailabilityStatus.BeRightBack.getColor()));
+         p.setProperty(AvailabilityStatus.Busy.getPropertyKey(), String.valueOf(AvailabilityStatus.Busy.getColor()));
+         p.setProperty(AvailabilityStatus.DoNotDisturb.getPropertyKey(),
+               String.valueOf(AvailabilityStatus.DoNotDisturb.getColor()));
          p.store(fw, "");
       } catch (IOException e) {
          LOG.error("Error while saving settings: ", e);
