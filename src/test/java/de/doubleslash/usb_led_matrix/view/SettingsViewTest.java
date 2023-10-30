@@ -1,6 +1,5 @@
 package de.doubleslash.usb_led_matrix.view;
 
-import de.doubleslash.usb_led_matrix.Settings;
 import de.doubleslash.usb_led_matrix.model.AvailabilityStatus;
 import de.doubleslash.usb_led_matrix.resources.Resources;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -17,11 +16,7 @@ import org.testfx.framework.junit5.Start;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -42,7 +37,6 @@ class SettingsViewTest {
 
    @Start
    void start(final Stage primaryStage) throws IOException, NoSuchFieldException {
-
       final FXMLLoader fxmlLoader = new FXMLLoader(Resources.SETTINGS_VIEW.getResource());
       fxmlLoader.load();
       settingsView = fxmlLoader.getController();
@@ -105,12 +99,13 @@ class SettingsViewTest {
       FileReader fr = new FileReader("settings.properties");
       properties.load(fr);
 
-      assertThat(properties.getProperty(AvailabilityStatus.Available.getPropertyKey()),is(expectedColor.toString()));
-      assertThat(properties.getProperty(AvailabilityStatus.AvailableIdle.getPropertyKey()),is(expectedColor.toString()));
-      assertThat(properties.getProperty(AvailabilityStatus.Busy.getPropertyKey()),is(expectedColor.toString()));
-      assertThat(properties.getProperty(AvailabilityStatus.BusyIdle.getPropertyKey()),is(expectedColor.toString()));
-      assertThat(properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()),is(expectedColor.toString()));
-      assertThat(properties.getProperty(AvailabilityStatus.Away.getPropertyKey()),is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.Available.getPropertyKey()), is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.AvailableIdle.getPropertyKey()),
+            is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.Busy.getPropertyKey()), is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.BusyIdle.getPropertyKey()), is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()), is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.Away.getPropertyKey()), is(expectedColor.toString()));
 
    }
 }

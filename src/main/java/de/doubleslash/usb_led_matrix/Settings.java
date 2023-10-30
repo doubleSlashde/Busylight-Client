@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,37 +15,33 @@ import java.util.Properties;
 public class Settings {
    private static final Logger LOG = LoggerFactory.getLogger(ConfigurationView.class);
    private static String filePath = "settings.properties";
+
    public static void loadProperty() {
-
       final File file = new File(filePath);
+      try (final FileReader fr = new FileReader(filePath)) {
+         final Properties properties = new Properties();
+         properties.load(fr);
+         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.Available,
+               properties.getProperty(AvailabilityStatus.Available.getPropertyKey()));
+         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.DoNotDisturb,
+               properties.getProperty(AvailabilityStatus.DoNotDisturb.getPropertyKey()));
+         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.Away,
+               properties.getProperty(AvailabilityStatus.Away.getPropertyKey()));
+         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.Busy,
+               properties.getProperty(AvailabilityStatus.Busy.getPropertyKey()));
+         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.BusyIdle,
+               properties.getProperty(AvailabilityStatus.BusyIdle.getPropertyKey()));
+         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.AvailableIdle,
+               properties.getProperty(AvailabilityStatus.AvailableIdle.getPropertyKey()));
+         setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.BeRightBack,
+               properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()));
 
-         try (final FileReader fr = new FileReader(filePath)) {
-            final Properties properties = new Properties();
-            properties.load(fr);
-            setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.Available,
-                  properties.getProperty(AvailabilityStatus.Available.getPropertyKey()));
-            setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.DoNotDisturb,
-                  properties.getProperty(AvailabilityStatus.DoNotDisturb.getPropertyKey()));
-            setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.Away,
-                  properties.getProperty(AvailabilityStatus.Away.getPropertyKey()));
-            setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.Busy,
-                  properties.getProperty(AvailabilityStatus.Busy.getPropertyKey()));
-            setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.BusyIdle,
-                  properties.getProperty(AvailabilityStatus.BusyIdle.getPropertyKey()));
-            setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.AvailableIdle,
-                  properties.getProperty(AvailabilityStatus.AvailableIdle.getPropertyKey()));
-            setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.BeRightBack,
-                  properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()));
-
-         } catch (IOException e) {
-            LOG.error("Settings Properties File was not Found", e);
-         }
+      } catch (IOException e) {
+         LOG.error("Settings Properties File was not Found", e);
       }
-
-
+   }
 
    public static void saveProperty() {
-
       try (final FileWriter fw = new FileWriter(filePath)) {
          final Properties p = new Properties();
          p.setProperty(AvailabilityStatus.Away.getPropertyKey(), String.valueOf(AvailabilityStatus.Away.getColor()));

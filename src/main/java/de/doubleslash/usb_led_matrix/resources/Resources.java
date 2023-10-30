@@ -4,10 +4,13 @@ import java.io.InputStream;
 import java.net.URL;
 
 public enum Resources {
+   // @formatter:off
+
    CONFIGURATION_VIEW("/layouts/configuration.fxml"),
    AUTHENTICATION_VIEW("/layouts/authentication.fxml"),
    INFO_VIEW("/layouts/version.fxml"),
    SETTINGS_VIEW ("/layouts/settings.fxml");
+   // @formatter:on
 
    private final String location;
 

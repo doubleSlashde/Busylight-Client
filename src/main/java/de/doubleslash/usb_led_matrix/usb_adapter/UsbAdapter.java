@@ -19,7 +19,6 @@ import jssc.SerialPortException;
 import jssc.SerialPortList;
 
 public class UsbAdapter implements SerialPortEventListener {
-
    byte numberLEDS = (byte) CommandLineOptions.getNumberOfLeds();
    private static final Logger LOG = LoggerFactory.getLogger(UsbAdapter.class);
 
