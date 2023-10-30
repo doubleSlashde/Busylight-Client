@@ -19,7 +19,7 @@ public class Settings {
    public static void loadProperty() {
 
       final File file = new File(filePath);
-      if (file.exists()) {
+
          try (final FileReader fr = new FileReader(filePath)) {
             final Properties properties = new Properties();
             properties.load(fr);
@@ -42,7 +42,8 @@ public class Settings {
             LOG.error("Settings Properties File was not Found", e);
          }
       }
-   }
+
+
 
    public static void saveProperty() {
 
