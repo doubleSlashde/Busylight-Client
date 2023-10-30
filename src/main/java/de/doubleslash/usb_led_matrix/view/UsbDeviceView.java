@@ -7,8 +7,10 @@ import de.doubleslash.usb_led_matrix.model.Model;
 import de.doubleslash.usb_led_matrix.usb_adapter.UsbAdapter;
 import jssc.SerialPortException;
 
+import java.lang.invoke.MethodHandles;
+
 public class UsbDeviceView {
-   private static final Logger LOG = LoggerFactory.getLogger(UsbDeviceView.class);
+   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
    private final Model model;
 

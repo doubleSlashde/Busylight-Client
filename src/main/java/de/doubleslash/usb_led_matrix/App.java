@@ -7,6 +7,7 @@ import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionListener;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.util.Properties;
 
@@ -29,7 +30,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class App extends Application {
-   private static final Logger LOG = LoggerFactory.getLogger(App.class);
+   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
    private final UsbAdapter usbAdapter = new UsbAdapter();
    public static String clientVersion;
 

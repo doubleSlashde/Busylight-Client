@@ -9,10 +9,11 @@ import org.slf4j.LoggerFactory;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.Properties;
 
 public class Settings {
-   private static final Logger LOG = LoggerFactory.getLogger(ConfigurationView.class);
+   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
    public static final String filePath = "settings.properties";
 
    public static void loadProperty() {

@@ -1,5 +1,6 @@
 package de.doubleslash.usb_led_matrix.usb_adapter;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,7 @@ import jssc.SerialPortList;
 
 public class UsbAdapter implements SerialPortEventListener {
    byte numberLEDS = (byte) CommandLineOptions.getNumberOfLeds();
-   private static final Logger LOG = LoggerFactory.getLogger(UsbAdapter.class);
+   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
    private final SimpleBooleanProperty connected = new SimpleBooleanProperty();
    private final SimpleStringProperty microcontrollerVersion = new SimpleStringProperty();

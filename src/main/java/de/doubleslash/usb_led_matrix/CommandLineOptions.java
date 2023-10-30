@@ -16,11 +16,12 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CommandLineOptions {
-   private static final Logger LOG = LoggerFactory.getLogger(CommandLineOptions.class);
+   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
    private static final String COM_PORT_OPTION = "port";
    private static final String MODE_OPTION = "mode";
    private static final String BRIGHTNESS_OPTION = "brightness";

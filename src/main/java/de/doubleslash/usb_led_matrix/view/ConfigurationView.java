@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ import java.util.Optional;
 public class ConfigurationView {
    private static final int POLLING_INTERVALL_SECONDS = 10;
 
-   private static final Logger LOG = LoggerFactory.getLogger(ConfigurationView.class);
+   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
    LocalTime timeLightsTurnedOffNow = LocalTime.now();
 
