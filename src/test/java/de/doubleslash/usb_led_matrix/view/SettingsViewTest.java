@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -62,6 +63,7 @@ class SettingsViewTest {
       doNotDisturbColor.setAccessible(true);
 
    }
+
    @Test
    void shouldSetStatusColorsToPinkWhenSaveButtonClicked() throws IllegalAccessException {
       // ARRANGE
@@ -84,95 +86,31 @@ class SettingsViewTest {
       assertThat(AvailabilityStatus.DoNotDisturb.getColor(), is(Color.PINK));
    }
 
-
-
    @Test
-   void shouldSetAwayStatusColorToPinkWhenSaveButtonClicked() throws IllegalAccessException {
+   public void shouldSaveAvailabilityStatusColorsInPropertyFileWhenSaveProperty()
+         throws IOException, IllegalAccessException {
       // ARRANGE
-      ((ColorPicker) awayColor.get(settingsView)).setValue(Color.PINK);
+      final Color expectedColor = Color.PINK;
+      ((ColorPicker) awayColor.get(settingsView)).setValue(expectedColor);
+      ((ColorPicker) availableColor.get(settingsView)).setValue(expectedColor);
+      ((ColorPicker) beRightBack.get(settingsView)).setValue(expectedColor);
+      ((ColorPicker) busyColor.get(settingsView)).setValue(expectedColor);
+      ((ColorPicker) doNotDisturbColor.get(settingsView)).setValue(expectedColor);
+
       // ACT
       settingsView.saveButton();
-      // ASSERT
-      assertThat(AvailabilityStatus.Away.getColor(), is(Color.PINK));
-   }
 
-   @Test
-   void shouldSetAvailableColorStatusColorToPinkWhenSaveButtonClicked() throws IllegalAccessException {
-      ((ColorPicker) availableColor.get(settingsView)).setValue(Color.PINK);
-      settingsView.saveButton();
-      assertThat(AvailabilityStatus.Available.getColor(), is(Color.PINK));
-   }
-
-   @Test
-   void shouldSetAvailableColorIdleStatusColorToPinkWhenSaveButtonClicked() throws IllegalAccessException {
-      ((ColorPicker) availableColor.get(settingsView)).setValue(Color.PINK);
-      settingsView.saveButton();
-      assertThat(AvailabilityStatus.AvailableIdle.getColor(), is(Color.PINK));
-   }
-
-   @Test
-   void shouldSetBeRightBackStatusColorToPinkWhenSaveButtonClicked() throws IllegalAccessException {
-      ((ColorPicker) beRightBack.get(settingsView)).setValue(Color.PINK);
-      settingsView.saveButton();
-      assertThat(AvailabilityStatus.BeRightBack.getColor(), is(Color.PINK));
-   }
-
-   @Test
-   void shouldSetBusyColorStatusColorToPinkWhenSaveButtonClicked() throws IllegalAccessException {
-      ((ColorPicker) busyColor.get(settingsView)).setValue(Color.PINK);
-      settingsView.saveButton();
-      assertThat(AvailabilityStatus.Busy.getColor(), is(Color.PINK));
-   }
-
-   @Test
-   void shouldSetBusyColorIdleStatusColorToPinkWhenSaveButtonClicked() throws IllegalAccessException {
-      ((ColorPicker) busyColor.get(settingsView)).setValue(Color.PINK);
-      settingsView.saveButton();
-      assertThat(AvailabilityStatus.BusyIdle.getColor(), is(Color.PINK));
-   }
-
-   @Test
-   void shouldSetDoNotDisturbColorStatusColorToPinkWhenSaveButtonClicked() throws IllegalAccessException {
-      ((ColorPicker) doNotDisturbColor.get(settingsView)).setValue(Color.PINK);
-      settingsView.saveButton();
-      assertThat(AvailabilityStatus.DoNotDisturb.getColor(), is(Color.PINK));
-   }
-
-
-
-
-   @Test
-   public void shouldSaveAvailabilityStatusColorsInPropertyFileWhenSaveProperty() throws IOException {
+      //ASSERT
       final Properties properties = new Properties();
       FileReader fr = new FileReader("settings.properties");
-//      FileReader fr = new FileReader("src/test/resources/settingsTest.properties");
       properties.load(fr);
-     assertEquals(AvailabilityStatus.Away.getColor().toString(), properties.getProperty(AvailabilityStatus.Away.getPropertyKey()));
-      assertEquals(AvailabilityStatus.DoNotDisturb.getColor().toString(), properties.getProperty(AvailabilityStatus.DoNotDisturb.getPropertyKey()));
-      assertEquals(AvailabilityStatus.Busy.getColor().toString(), properties.getProperty(AvailabilityStatus.Busy.getPropertyKey()));
-      assertEquals(AvailabilityStatus.BusyIdle.getColor().toString(), properties.getProperty(AvailabilityStatus.Busy.getPropertyKey()));
-      assertEquals(AvailabilityStatus.BeRightBack.getColor().toString(), properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()));
-      assertEquals(AvailabilityStatus.Available.getColor().toString(), properties.getProperty(AvailabilityStatus.Available.getPropertyKey()));
-      assertEquals(AvailabilityStatus.AvailableIdle.getColor().toString(), properties.getProperty(AvailabilityStatus.Available.getPropertyKey()));
+
+      assertThat(properties.getProperty(AvailabilityStatus.Available.getPropertyKey()),is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.AvailableIdle.getPropertyKey()),is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.Busy.getPropertyKey()),is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.BusyIdle.getPropertyKey()),is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()),is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.Away.getPropertyKey()),is(expectedColor.toString()));
+
    }
-
-   @Test
-   void shouldNotNullIfPropertiesFileDoesNotExist() throws IOException {
-      String filePath = "src/test/resources/settingsTestNull.properties";
-
-      final File file = new File(filePath);
-
-      if (file.exists()) {
-         file.delete();
-      }
-      assertNotNull(AvailabilityStatus.Away.getColor());
-      assertNotNull(AvailabilityStatus.DoNotDisturb.getColor());
-      assertNotNull(AvailabilityStatus.Busy.getColor());
-      assertNotNull(AvailabilityStatus.BusyIdle.getColor());
-      assertNotNull(AvailabilityStatus.BeRightBack.getColor());
-      assertNotNull(AvailabilityStatus.Available.getColor());
-      assertNotNull(AvailabilityStatus.AvailableIdle.getColor());
-   }
-
-
 }
