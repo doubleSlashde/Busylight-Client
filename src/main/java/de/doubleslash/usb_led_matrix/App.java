@@ -46,7 +46,7 @@ public class App extends Application {
       final Properties properties = new Properties();
       properties.load(this.getClass().getResourceAsStream("/busylight.properties"));
 
-      LOG.debug("Version of client is " + properties.getProperty("version"));
+      LOG.debug("Version of client is '{}'", properties.getProperty("version"));
       clientVersion = properties.getProperty("version");
       final FXMLLoader fxmlLoader = new FXMLLoader(Resources.CONFIGURATION_VIEW.getResource());
       final Parent root = fxmlLoader.load();

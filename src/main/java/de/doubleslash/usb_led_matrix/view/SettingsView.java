@@ -28,13 +28,12 @@ public class SettingsView {
    private ColorPicker doNotDisturbColor;
 
    @FXML
-   public void initialize() throws IOException {
+   public void initialize() {
       availableColor.setValue(AvailabilityStatus.Available.getColor());
       busyColor.setValue(AvailabilityStatus.Busy.getColor());
       doNotDisturbColor.setValue(AvailabilityStatus.DoNotDisturb.getColor());
       beRightBack.setValue(AvailabilityStatus.BeRightBack.getColor());
       awayColor.setValue(AvailabilityStatus.Away.getColor());
-
    }
 
    @FXML
@@ -47,7 +46,5 @@ public class SettingsView {
       AvailabilityStatus.BeRightBack.setColor((beRightBack.getValue()));
       AvailabilityStatus.AvailableIdle.setColor(availableColor.getValue());
       Settings.saveProperty();
-
    }
-
 }

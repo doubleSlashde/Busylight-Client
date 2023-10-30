@@ -91,7 +91,7 @@ public class AuthenticationView {
             setTeamsIDButton.fire();
          }
       } catch (IOException e) {
-         LOG.debug("Could not read dile'" + fileName + "': ", e);
+         LOG.debug("Could not read file'{}'", fileName, e);
       }
    }
 

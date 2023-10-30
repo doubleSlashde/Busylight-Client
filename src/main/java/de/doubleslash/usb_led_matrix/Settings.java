@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,10 +13,9 @@ import java.util.Properties;
 
 public class Settings {
    private static final Logger LOG = LoggerFactory.getLogger(ConfigurationView.class);
-   private static String filePath = "settings.properties";
+   public static final String filePath = "settings.properties";
 
    public static void loadProperty() {
-      final File file = new File(filePath);
       try (final FileReader fr = new FileReader(filePath)) {
          final Properties properties = new Properties();
          properties.load(fr);
@@ -35,9 +33,8 @@ public class Settings {
                properties.getProperty(AvailabilityStatus.AvailableIdle.getPropertyKey()));
          setColorOfAvailabilityStatusIfPropertyValueIsNotNull(AvailabilityStatus.BeRightBack,
                properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()));
-
       } catch (IOException e) {
-         LOG.error("Settings Properties File was not Found", e);
+         LOG.error("Properties could not be loaded from file '{}'", filePath, e);
       }
    }
 

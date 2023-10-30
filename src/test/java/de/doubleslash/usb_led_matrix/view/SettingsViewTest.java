@@ -1,5 +1,6 @@
 package de.doubleslash.usb_led_matrix.view;
 
+import de.doubleslash.usb_led_matrix.Settings;
 import de.doubleslash.usb_led_matrix.model.AvailabilityStatus;
 import de.doubleslash.usb_led_matrix.resources.Resources;
 import javafx.fxml.FXMLLoader;
@@ -55,29 +56,29 @@ class SettingsViewTest {
 
       doNotDisturbColor = settingsView.getClass().getDeclaredField("doNotDisturbColor");
       doNotDisturbColor.setAccessible(true);
-
    }
 
    @Test
    void shouldSetStatusColorsToPinkWhenSaveButtonClicked() throws IllegalAccessException {
       // ARRANGE
-      ((ColorPicker) awayColor.get(settingsView)).setValue(Color.PINK);
-      ((ColorPicker) availableColor.get(settingsView)).setValue(Color.PINK);
-      ((ColorPicker) beRightBack.get(settingsView)).setValue(Color.PINK);
-      ((ColorPicker) busyColor.get(settingsView)).setValue(Color.PINK);
-      ((ColorPicker) doNotDisturbColor.get(settingsView)).setValue(Color.PINK);
+      final Color expectedColor = Color.PINK;
+      ((ColorPicker) awayColor.get(settingsView)).setValue(expectedColor);
+      ((ColorPicker) availableColor.get(settingsView)).setValue(expectedColor);
+      ((ColorPicker) beRightBack.get(settingsView)).setValue(expectedColor);
+      ((ColorPicker) busyColor.get(settingsView)).setValue(expectedColor);
+      ((ColorPicker) doNotDisturbColor.get(settingsView)).setValue(expectedColor);
 
       // ACT
       settingsView.saveButton();
 
       // ASSERT
-      assertThat(AvailabilityStatus.Away.getColor(), is(Color.PINK));
-      assertThat(AvailabilityStatus.Available.getColor(), is(Color.PINK));
-      assertThat(AvailabilityStatus.AvailableIdle.getColor(), is(Color.PINK));
-      assertThat(AvailabilityStatus.BeRightBack.getColor(), is(Color.PINK));
-      assertThat(AvailabilityStatus.Busy.getColor(), is(Color.PINK));
-      assertThat(AvailabilityStatus.BusyIdle.getColor(), is(Color.PINK));
-      assertThat(AvailabilityStatus.DoNotDisturb.getColor(), is(Color.PINK));
+      assertThat(AvailabilityStatus.Away.getColor(), is(expectedColor));
+      assertThat(AvailabilityStatus.Available.getColor(), is(expectedColor));
+      assertThat(AvailabilityStatus.AvailableIdle.getColor(), is(expectedColor));
+      assertThat(AvailabilityStatus.BeRightBack.getColor(), is(expectedColor));
+      assertThat(AvailabilityStatus.Busy.getColor(), is(expectedColor));
+      assertThat(AvailabilityStatus.BusyIdle.getColor(), is(expectedColor));
+      assertThat(AvailabilityStatus.DoNotDisturb.getColor(), is(expectedColor));
    }
 
    @Test
@@ -96,7 +97,7 @@ class SettingsViewTest {
 
       //ASSERT
       final Properties properties = new Properties();
-      FileReader fr = new FileReader("settings.properties");
+      FileReader fr = new FileReader(Settings.filePath);
       properties.load(fr);
 
       assertThat(properties.getProperty(AvailabilityStatus.Available.getPropertyKey()), is(expectedColor.toString()));
@@ -106,6 +107,5 @@ class SettingsViewTest {
       assertThat(properties.getProperty(AvailabilityStatus.BusyIdle.getPropertyKey()), is(expectedColor.toString()));
       assertThat(properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()), is(expectedColor.toString()));
       assertThat(properties.getProperty(AvailabilityStatus.Away.getPropertyKey()), is(expectedColor.toString()));
-
    }
 }

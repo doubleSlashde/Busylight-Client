@@ -11,19 +11,20 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class SettingsTest {
-   private final String fileName = "settings.properties";
+   private final String fileName = Settings.filePath;
 
    @Test
    void shouldNotThrowNullPointerExceptionWhenSettingsFileExistsButPropertyIsMissing() throws IOException {
       //ARRANGE
       final File file = new File(fileName);
       file.createNewFile();
+
       //ACT+ASSERT
       assertDoesNotThrow(Settings::loadProperty);
    }
 
    @Test
-   void shouldLoadSettingsWhenFileDoesNotExist() {
+   void shouldThrowExceptionWhenFileDoesNotExist() {
       //ARRANGE
       final File file = new File(fileName);
       assertThat(file.exists(), is(false));
@@ -39,5 +40,4 @@ class SettingsTest {
          file.delete();
       }
    }
-
 }
