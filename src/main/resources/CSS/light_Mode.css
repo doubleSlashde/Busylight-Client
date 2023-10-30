@@ -13,8 +13,3 @@
 .labelCode{
     -fx-text-fill: #25d331;
 }
-
-.lightMode, .darkModeImage{
-	visibility: hidden;
-}
-}
