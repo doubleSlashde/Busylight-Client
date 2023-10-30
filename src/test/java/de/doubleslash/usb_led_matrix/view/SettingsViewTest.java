@@ -21,6 +21,8 @@ import static org.hamcrest.CoreMatchers.is;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 @ExtendWith(ApplicationExtension.class)
@@ -61,36 +63,58 @@ class SettingsViewTest {
    @Test
    void shouldSetStatusColorsToPinkWhenSaveButtonClicked() throws IllegalAccessException {
       // ARRANGE
-      final Color expectedColor = Color.PINK;
-      ((ColorPicker) awayColor.get(settingsView)).setValue(expectedColor);
-      ((ColorPicker) availableColor.get(settingsView)).setValue(expectedColor);
-      ((ColorPicker) beRightBack.get(settingsView)).setValue(expectedColor);
-      ((ColorPicker) busyColor.get(settingsView)).setValue(expectedColor);
-      ((ColorPicker) doNotDisturbColor.get(settingsView)).setValue(expectedColor);
+      int r = 0;
+      int g = 0;
+      int b = 0;
+      final Map<AvailabilityStatus, Color> expectedColors = new HashMap<>();
+      expectedColors.put(AvailabilityStatus.Available, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.AvailableIdle, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.Away, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.BeRightBack, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.Busy, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.BusyIdle, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.DoNotDisturb, Color.rgb(r++, g++, b++));
+
+      ((ColorPicker) availableColor.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.Available));
+      ((ColorPicker) awayColor.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.Away));
+      ((ColorPicker) beRightBack.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.BeRightBack));
+      ((ColorPicker) busyColor.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.Busy));
+      ((ColorPicker) doNotDisturbColor.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.DoNotDisturb));
 
       // ACT
       settingsView.saveButton();
 
       // ASSERT
-      assertThat(AvailabilityStatus.Away.getColor(), is(expectedColor));
-      assertThat(AvailabilityStatus.Available.getColor(), is(expectedColor));
-      assertThat(AvailabilityStatus.AvailableIdle.getColor(), is(expectedColor));
-      assertThat(AvailabilityStatus.BeRightBack.getColor(), is(expectedColor));
-      assertThat(AvailabilityStatus.Busy.getColor(), is(expectedColor));
-      assertThat(AvailabilityStatus.BusyIdle.getColor(), is(expectedColor));
-      assertThat(AvailabilityStatus.DoNotDisturb.getColor(), is(expectedColor));
+      assertThat(AvailabilityStatus.Available.getColor(), is(expectedColors.get(AvailabilityStatus.Available)));
+      assertThat(AvailabilityStatus.AvailableIdle.getColor(), is(expectedColors.get(AvailabilityStatus.AvailableIdle)));
+      assertThat(AvailabilityStatus.Away.getColor(), is(expectedColors.get(AvailabilityStatus.Away)));
+      assertThat(AvailabilityStatus.BeRightBack.getColor(), is(expectedColors.get(AvailabilityStatus.BeRightBack)));
+      assertThat(AvailabilityStatus.Busy.getColor(), is(expectedColors.get(AvailabilityStatus.Busy)));
+      assertThat(AvailabilityStatus.BusyIdle.getColor(), is(expectedColors.get(AvailabilityStatus.BusyIdle)));
+      assertThat(AvailabilityStatus.DoNotDisturb.getColor(), is(expectedColors.get(AvailabilityStatus.DoNotDisturb)));
    }
 
    @Test
    public void shouldSaveAvailabilityStatusColorsInPropertyFileWhenSaveProperty()
          throws IOException, IllegalAccessException {
       // ARRANGE
-      final Color expectedColor = Color.PINK;
-      ((ColorPicker) awayColor.get(settingsView)).setValue(expectedColor);
-      ((ColorPicker) availableColor.get(settingsView)).setValue(expectedColor);
-      ((ColorPicker) beRightBack.get(settingsView)).setValue(expectedColor);
-      ((ColorPicker) busyColor.get(settingsView)).setValue(expectedColor);
-      ((ColorPicker) doNotDisturbColor.get(settingsView)).setValue(expectedColor);
+      int r = 0;
+      int g = 0;
+      int b = 0;
+      final Map<AvailabilityStatus, Color> expectedColors = new HashMap<>();
+      expectedColors.put(AvailabilityStatus.Available, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.AvailableIdle, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.Away, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.BeRightBack, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.Busy, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.BusyIdle, Color.rgb(r++, g++, b++));
+      expectedColors.put(AvailabilityStatus.DoNotDisturb, Color.rgb(r++, g++, b++));
+
+      ((ColorPicker) availableColor.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.Available));
+      ((ColorPicker) awayColor.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.Away));
+      ((ColorPicker) beRightBack.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.BeRightBack));
+      ((ColorPicker) busyColor.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.Busy));
+      ((ColorPicker) doNotDisturbColor.get(settingsView)).setValue(expectedColors.get(AvailabilityStatus.DoNotDisturb));
 
       // ACT
       settingsView.saveButton();
@@ -100,12 +124,19 @@ class SettingsViewTest {
       FileReader fr = new FileReader(Settings.filePath);
       properties.load(fr);
 
-      assertThat(properties.getProperty(AvailabilityStatus.Available.getPropertyKey()), is(expectedColor.toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.Available.getPropertyKey()),
+            is(expectedColors.get(AvailabilityStatus.Available).toString()));
       assertThat(properties.getProperty(AvailabilityStatus.AvailableIdle.getPropertyKey()),
-            is(expectedColor.toString()));
-      assertThat(properties.getProperty(AvailabilityStatus.Busy.getPropertyKey()), is(expectedColor.toString()));
-      assertThat(properties.getProperty(AvailabilityStatus.BusyIdle.getPropertyKey()), is(expectedColor.toString()));
-      assertThat(properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()), is(expectedColor.toString()));
-      assertThat(properties.getProperty(AvailabilityStatus.Away.getPropertyKey()), is(expectedColor.toString()));
+            is(expectedColors.get(AvailabilityStatus.AvailableIdle).toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.Away.getPropertyKey()),
+            is(expectedColors.get(AvailabilityStatus.Away).toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.Busy.getPropertyKey()),
+            is(expectedColors.get(AvailabilityStatus.Busy).toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.BusyIdle.getPropertyKey()),
+            is(expectedColors.get(AvailabilityStatus.BusyIdle).toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.BeRightBack.getPropertyKey()),
+            is(expectedColors.get(AvailabilityStatus.BeRightBack).toString()));
+      assertThat(properties.getProperty(AvailabilityStatus.DoNotDisturb.getPropertyKey()),
+            is(expectedColors.get(AvailabilityStatus.DoNotDisturb).toString()));
    }
 }
