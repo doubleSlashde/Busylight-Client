@@ -16,7 +16,7 @@ public enum AvailabilityStatus {
    // @formatter:on
 
    private Color color;
-   private String propertyKey;
+   private final String propertyKey;
 
    private AvailabilityStatus(final Color color, final String propertyKey) {
       this.color = color;
