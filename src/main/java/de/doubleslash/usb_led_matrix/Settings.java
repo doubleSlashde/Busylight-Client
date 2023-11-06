@@ -1,7 +1,6 @@
 package de.doubleslash.usb_led_matrix;
 
 import de.doubleslash.usb_led_matrix.model.AvailabilityStatus;
-import de.doubleslash.usb_led_matrix.view.ConfigurationView;
 import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,7 @@ public class Settings {
    private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
    public static final String filePath = "settings.properties";
 
-   public static void loadProperty() {
+   public static void loadSettings() {
       try (final FileReader fr = new FileReader(filePath)) {
          final Properties properties = new Properties();
          properties.load(fr);
@@ -39,7 +38,7 @@ public class Settings {
       }
    }
 
-   public static void saveProperty() {
+   public static void saveSettings() {
       try (final FileWriter fw = new FileWriter(filePath)) {
          final Properties p = new Properties();
          p.setProperty(AvailabilityStatus.Available.getPropertyKey(),

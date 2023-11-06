@@ -7,7 +7,6 @@ import javafx.scene.control.ColorPicker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
 public class SettingsView {
@@ -46,6 +45,6 @@ public class SettingsView {
       AvailabilityStatus.Available.setColor(availableColor.getValue());
       AvailabilityStatus.BeRightBack.setColor((beRightBack.getValue()));
       AvailabilityStatus.AvailableIdle.setColor(availableColor.getValue());
-      Settings.saveProperty();
+      Settings.saveSettings();
    }
 }

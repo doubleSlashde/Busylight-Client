@@ -20,7 +20,7 @@ class SettingsTest {
       file.createNewFile();
 
       //ACT+ASSERT
-      assertDoesNotThrow(Settings::loadProperty);
+      assertDoesNotThrow(Settings::loadSettings);
    }
 
    @Test
@@ -30,7 +30,7 @@ class SettingsTest {
       assertThat(file.exists(), is(false));
 
       //ACT+ASSERT
-      assertDoesNotThrow(Settings::loadProperty);
+      assertDoesNotThrow(Settings::loadSettings);
    }
 
    @AfterEach
