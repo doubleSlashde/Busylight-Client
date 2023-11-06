@@ -184,7 +184,7 @@ public class AuthenticationView {
 
          this.deviceCode.set(deviceCode);
       } catch (IOException | InterruptedException e) {
-         LOG.error("Could not retrieve device code: " , e);
+         LOG.error("Could not retrieve device code: ", e);
       }
    }
 }
