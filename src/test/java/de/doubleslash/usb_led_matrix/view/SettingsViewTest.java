@@ -61,7 +61,7 @@ class SettingsViewTest {
    }
 
    @Test
-   void shouldSetStatusColorsToPinkWhenSaveButtonClicked() throws IllegalAccessException {
+   void shouldSetStatusColorsCorrectlyWhenSaveButtonIsClicked() throws IllegalAccessException {
       // ARRANGE
       int r = 0;
       int g = 0;
