@@ -3,6 +3,7 @@ package de.doubleslash.usb_led_matrix.model;
 import javafx.scene.paint.Color;
 
 public enum AvailabilityStatus {
+   // @formatter:off
    Available(Color.GREEN, "available"),
    AvailableIdle(Color.GREEN, Available.propertyKey),
    Away(Color.ORANGE, "away"),
@@ -12,6 +13,7 @@ public enum AvailabilityStatus {
    DoNotDisturb(Color.RED, "doNotDisturb"),
    Offline(Color.BLACK, null),
    PresenceUnknown(null, null);
+   // @formatter:on
 
    private Color color;
    private final String propertyKey;
