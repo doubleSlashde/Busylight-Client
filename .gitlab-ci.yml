@@ -1,4 +1,4 @@
-image: maven:3-amazoncorretto-11
+image: maven:3-amazoncorretto-17
 
 stages:
   - staticTest
@@ -7,11 +7,12 @@ stages:
 variables:
   VERSION: 0.0.${CI_PIPELINE_ID}
 
+
 # Jobs
 build:
   stage: build
   script:
-    - mvn clean package -Dproject.version=${VERSION}
+    - mvn clean package -Dproject.version=${VERSION} -Dmaven.compiler.source=17 -Dmaven.compiler.target=17
   artifacts:
     name: "busylight_client.jar"
     reports:
