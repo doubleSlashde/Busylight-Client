@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.invoke.MethodHandles;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -28,7 +29,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public class Graph {
-   private static final Logger LOG = LoggerFactory.getLogger(Graph.class);
+   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
    private final String SCOPE = "https://graph.microsoft.com/User.Read Presence.Read offline_access";
 
    private final File refreshFile = new File("refreshToken.txt");
@@ -51,7 +52,7 @@ public class Graph {
             tokenURI = String.format("https://login.microsoftonline.com/%s/oauth2/v2.0/token", tenantID);
          }
       } catch (IOException e) {
-         LOG.error("Could not load properties from file '" + refreshFile.getAbsolutePath() + "': " + e);
+         LOG.error("Could not load properties from file '{}'", refreshFile.getAbsolutePath(), e);
       }
    }
 

@@ -1,6 +1,6 @@
 package de.doubleslash.usb_led_matrix.view;
 
-import de.doubleslash.usb_led_matrix.Settings;
+import de.doubleslash.usb_led_matrix.CommandLineOptions;
 import de.doubleslash.usb_led_matrix.graph.Graph;
 import de.doubleslash.usb_led_matrix.model.Model;
 import de.doubleslash.usb_led_matrix.resources.Resources;
@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ import java.util.Optional;
 public class ConfigurationView {
    private static final int POLLING_INTERVALL_SECONDS = 10;
 
-   private static final Logger LOG = LoggerFactory.getLogger(ConfigurationView.class);
+   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
    LocalTime timeLightsTurnedOffNow = LocalTime.now();
 
@@ -238,7 +239,7 @@ public class ConfigurationView {
                      popUpStage.showAndWait();
                      startAfterAuthentification = true;
                   } catch (IOException e) {
-                     LOG.error("Could not load view '{}'. Exiting.", Resources.AUTHENTICATION_VIEW, e);
+                     LOG.error("Could not load view '{}'", Resources.AUTHENTICATION_VIEW, e);
                   }
                }
             }
@@ -292,7 +293,7 @@ public class ConfigurationView {
             model.setPortName(newValue);
          }
       });
-      selectPortComboBoxItem(Settings.getCom());
+      selectPortComboBoxItem(CommandLineOptions.getCom());
    }
 
    private void selectPortComboBoxItem(final String portName) {
@@ -331,16 +332,16 @@ public class ConfigurationView {
          timedOut = false;
       });
       this.usbAdapter = usbAdapter;
-      if (Settings.getColorMode().equals("light")) {
-         Settings.Light(scene);
-      } else if (Settings.getColorMode().equals("dark")) {
-         Settings.Dark(scene);
+      if (CommandLineOptions.getColorMode().equals("light")) {
+         CommandLineOptions.Light(scene);
+      } else if (CommandLineOptions.getColorMode().equals("dark")) {
+         CommandLineOptions.Dark(scene);
       }
       portChoiceBox.setItems(model.getSerialPorts());
       initializePortChoiceBox();
-      if (Settings.getMode().equals("manual")) {
+      if (CommandLineOptions.getMode().equals("manual")) {
          radioButtonGroup.selectToggle(manualRadioButton);
-      } else if (Settings.getMode().equals("teams")) {
+      } else if (CommandLineOptions.getMode().equals("teams")) {
          radioButtonGroup.selectToggle(teamsRadioButton);
       }
       if (model.getSelectedToggle() == null) {
@@ -349,8 +350,8 @@ public class ConfigurationView {
       } else {
          radioButtonGroup.selectToggle(model.getSelectedToggle());
       }
-      model.setBrightnessFromPercentage(Settings.getBrightness());
-      brightnessSlider.setValue(Settings.getBrightness());
+      model.setBrightnessFromPercentage(CommandLineOptions.getBrightness());
+      brightnessSlider.setValue(CommandLineOptions.getBrightness());
       registerConnectedListener();
       healthCheckThread = new Thread(healthCheckRunnable);
       healthCheckThread.setName("Health");
@@ -404,31 +405,6 @@ public class ConfigurationView {
       startNamedThreadWithRunnable(reconnectionCheckRunnable, "reconnectionThread");
    }
 
-   @FXML
-   void informationImageButton(final MouseEvent event) throws SerialPortException {
-      final FXMLLoader fxmlLoader = new FXMLLoader(Resources.INFO_VIEW.getResource());
-      try {
-         usbAdapter.requestVersion();
-         final Parent root = fxmlLoader.load();
-         final VersionView versionView = fxmlLoader.getController();
-         final Scene scene = new Scene(root);
-         versionView.setScene(scene);
-         versionView.instantiate(usbAdapter.versionProperty());
-
-         popUpStage.setScene(scene);
-         popUpStage.getIcons().add(image);
-         popUpStage.setTitle("Info");
-         popUpStage.setMinWidth(328);
-         popUpStage.setMinHeight(193);
-         popUpStage.setMaxHeight(193);
-         popUpStage.setMaxWidth(328);
-         popUpStage.setResizable(false);
-         popUpStage.showAndWait();
-      } catch (final IOException e) {
-         LOG.error("Could not load view '{}'. Exiting.", Resources.INFO_VIEW, e);
-      }
-   }
-
    private void startNamedThreadWithRunnable(final Runnable runnable, final String name) {
       if (currentlyRunningThread != null && currentlyRunningThread.isAlive()) {
          currentlyRunningThread.interrupt();
@@ -449,13 +425,13 @@ public class ConfigurationView {
       model.getSerialPorts().setAll(UsbAdapter.getSerialPortNames());
       if (model.getSerialPorts().contains(currentPort)) {
          selectPortComboBoxItem(currentPort);
-      } else if (model.getSerialPorts().contains(Settings.getCom())) {
-         selectPortComboBoxItem(Settings.getCom());
+      } else if (model.getSerialPorts().contains(CommandLineOptions.getCom())) {
+         selectPortComboBoxItem(CommandLineOptions.getCom());
       }
    }
 
    void turnOffAutomaticallyIfNeeded(final LocalTime currentTime) {
-      final LocalTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(Settings.getTimeout());
+      final LocalTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(CommandLineOptions.getTimeout());
       if (!currentTime.isBefore(timeLightsTurnedOff) && !timedOut) {
          LOG.info("Turn off automatically at '{}'", timeLightsTurnedOff);
          usbAdapter.updatePixel(Color.BLACK);
@@ -469,11 +445,53 @@ public class ConfigurationView {
 
    @FXML
    void toggleLightMode(final MouseEvent event) {
-      Settings.Light(scene);
+      CommandLineOptions.Light(scene);
    }
 
    @FXML
    void toggleDarkMode(final MouseEvent event) {
-      Settings.Dark(scene);
+      CommandLineOptions.Dark(scene);
+   }
+
+   @FXML
+   void showInfoView() {
+      final FXMLLoader fxmlLoader = new FXMLLoader(Resources.INFO_VIEW.getResource());
+      try {
+         Stage stage = new Stage();
+
+         usbAdapter.requestVersion();
+         final Parent root = fxmlLoader.load();
+         final VersionView versionView = fxmlLoader.getController();
+         final Scene scene = new Scene(root);
+         versionView.setScene(scene);
+         versionView.instantiate(usbAdapter.versionProperty());
+
+         stage.setScene(scene);
+         stage.getIcons().add(image);
+         stage.setTitle("Info");
+         stage.setResizable(false);
+         stage.initModality(Modality.APPLICATION_MODAL);
+         stage.show();
+      } catch (final IOException | SerialPortException e) {
+         LOG.error("Could not load view '{}'.", Resources.INFO_VIEW, e);
+      }
+   }
+
+   @FXML
+   void showSettingsView() {
+      final FXMLLoader fxmlLoader = new FXMLLoader(Resources.SETTINGS_VIEW.getResource());
+      try {
+         Stage stage = new Stage();
+         final Parent root = fxmlLoader.load();
+         final Scene scene = new Scene(root);
+
+         stage.setTitle("Settings");
+         stage.setScene(scene);
+         stage.setResizable(false);
+         stage.initModality(Modality.APPLICATION_MODAL);
+         stage.show();
+      } catch (final IOException e) {
+         LOG.error("Could not load view '{}'.", Resources.SETTINGS_VIEW, e);
+      }
    }
 }

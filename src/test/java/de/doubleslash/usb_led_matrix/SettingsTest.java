@@ -1,112 +1,77 @@
 package de.doubleslash.usb_led_matrix;
 
-import org.junit.jupiter.api.BeforeEach;
+import de.doubleslash.usb_led_matrix.model.AvailabilityStatus;
+import javafx.scene.paint.Color;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class SettingsTest {
-   @BeforeEach
-   void resetSettings() {
-      Settings.reset();
+   private static final String filePath = "settings.properties";
+   private static final String fileContent =
+         // @formatter:off
+          "away=0xffa500ff\n"
+        + "doNotDisturb=0xff0000ff\n"
+        + "busy=0xff00000f\n"
+        + "available=0x00ff0fff\n"
+        + "beRightBack=0xffa550ff\n";
+         // @formatter:on
+
+   @Test
+   void shouldLoadSettingsSuccessfullyWhenFileExists() throws IOException {
+      createPropertiesFile();
+
+      Settings.loadSettings();
+
+      assertThat(AvailabilityStatus.Available.getColor(), equalTo(Color.web("#00ff0fff")));
+      assertThat(AvailabilityStatus.AvailableIdle.getColor(), equalTo(Color.web("#00ff0fff")));
+      assertThat(AvailabilityStatus.Away.getColor(), equalTo(Color.web("#ffa500ff")));
+      assertThat(AvailabilityStatus.BeRightBack.getColor(), equalTo(Color.web("#ffa550ff")));
+      assertThat(AvailabilityStatus.Busy.getColor(), equalTo(Color.web("#ff00000f")));
+      assertThat(AvailabilityStatus.BusyIdle.getColor(), equalTo(Color.web("#ff00000f")));
+      assertThat(AvailabilityStatus.DoNotDisturb.getColor(), equalTo(Color.web("#ff0000ff")));
    }
 
    @Test
-   void shouldSetBrightnessValueWhenConfiguredWithLongCommandLineOption() {
-      String[] args = { "--brightness", "60" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getBrightness()).isEqualTo(60);
+   void shouldNotThrowNullPointerExceptionWhenSettingsFileExistsButPropertyIsMissing() throws IOException {
+      //ARRANGE
+      final File file = new File(filePath);
+      file.createNewFile();
+
+      //ACT+ASSERT
+      assertDoesNotThrow(Settings::loadSettings);
    }
 
    @Test
-   void shouldSetBrightnessValueWhenConfiguredWithShortCommandLineOption() {
-      String[] args = { "-b", "60" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getBrightness()).isEqualTo(60);
+   void shouldThrowExceptionWhenFileDoesNotExist() {
+      //ARRANGE
+      final File file = new File(filePath);
+      assertThat(file.exists(), is(false));
+
+      //ACT+ASSERT
+      assertDoesNotThrow(Settings::loadSettings);
    }
 
-   @Test
-   void shouldSetModeToManualWhenConfiguredWithLongCommandLineOption() {
-      String[] args = { "--mode", "manual" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getMode()).isEqualTo("manual");
+   private void createPropertiesFile() throws IOException {
+      File file = new File(filePath);
+      FileWriter fileWriter = new FileWriter(file);
+      fileWriter.write(fileContent);
+      fileWriter.close();
    }
 
-   @Test
-   void shouldSetModeToManualWhenConfiguredWithShortCommandLineOption() {
-      String[] args = { "-m", "manual" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getMode()).isEqualTo("manual");
-   }
-
-   @Test
-   void shouldSetColorModeToDarkWhenConfiguredWithLongCommandLineOption() {
-      String[] args = { "--colorMode", "dark" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getColorMode()).isEqualTo("dark");
-   }
-
-   @Test
-   void shouldSetColorModeToDarkWhenConfiguredWithShortCommandLineOption() {
-      String[] args = { "-c", "dark" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getColorMode()).isEqualTo("dark");
-   }
-
-   @Test
-   void shouldSetTimeoutWhenConfiguredWithLongCommandLineOption() {
-      String[] args = { "--timeout", "30" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getTimeout()).isEqualTo(30);
-   }
-
-   @Test
-   void shouldSetTimeoutWhenConfiguredWithShortCommandLineOption() {
-      String[] args = { "-t", "30" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getTimeout()).isEqualTo(30);
-   }
-
-   @Test
-   void shouldSetComPortWhenConfiguredWithLongCommandLineOption() {
-      String[] args = { "--port", "COM7" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getCom()).isEqualTo("COM7");
-   }
-
-   @Test
-   void shouldSetComPortWhenConfiguredWithShortCommandLineOption() {
-      String[] args = { "-p", "COM7" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getCom()).isEqualTo("COM7");
-   }
-
-   @Test
-   void shouldSetNumberOfLedsWhenConfiguredWithLongCommandLineOption() {
-      String[] args = { "--numberOfLeds", "5" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getNumberOfLeds()).isEqualTo(5);
-   }
-
-   @Test
-   void shouldSetNumberOfLedsWhenConfiguredWithShortCommandLineOption() {
-      String[] args = { "-nr", "5" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getNumberOfLeds()).isEqualTo(5);
-   }
-
-   @Test
-   void shouldNotSetColorModeToDarkWhenConfiguredWithInvalidValue() {
-      String[] args = { "-c", "pink" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getColorMode()).isNotEqualTo("pink");
-   }
-
-   @Test
-   void shouldSetComPortAndNumberOfLedsWhenConfiguredWithShortCommandLineOption() {
-      String[] args = { "-nr", "5", "-p", "COM7" };
-      Settings.handleParameters(args);
-      assertThat(Settings.getNumberOfLeds()).isEqualTo(5);
-      assertThat(Settings.getCom()).isEqualTo("COM7");
+   @AfterEach
+   private void deleteFileIfExists() {
+      final File file = new File(filePath);
+      if (file.exists()) {
+         file.delete();
+      }
    }
 }

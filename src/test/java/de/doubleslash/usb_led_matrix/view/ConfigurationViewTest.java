@@ -1,6 +1,6 @@
 package de.doubleslash.usb_led_matrix.view;
 
-import de.doubleslash.usb_led_matrix.Settings;
+import de.doubleslash.usb_led_matrix.CommandLineOptions;
 import de.doubleslash.usb_led_matrix.model.Model;
 import de.doubleslash.usb_led_matrix.resources.Resources;
 import de.doubleslash.usb_led_matrix.usb_adapter.UsbAdapter;
@@ -20,10 +20,8 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.time.LocalTime;
 import java.util.Properties;
 
@@ -81,7 +79,7 @@ class ConfigurationViewTest {
       // Given
       final LocalTime currentTime = LocalTime.of(22, 0);
       configurationView.setUsbAdapter(usbAdapter);
-      Settings.setTimeoutInMinutes(60);
+      CommandLineOptions.setTimeoutInMinutes(60);
       configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
       // When
       configurationView.turnOffAutomaticallyIfNeeded(currentTime);
@@ -94,7 +92,7 @@ class ConfigurationViewTest {
       // Given
       final LocalTime currentTime = LocalTime.of(22, 0);
       configurationView.setUsbAdapter(usbAdapter);
-      Settings.setTimeoutInMinutes(60);
+      CommandLineOptions.setTimeoutInMinutes(60);
       configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
       // When
 
@@ -111,7 +109,7 @@ class ConfigurationViewTest {
       final LocalTime currentTime = LocalTime.of(22, 0);
       final LocalTime laterCurrentTime = LocalTime.of(22, 30);
       configurationView.setUsbAdapter(usbAdapter);
-      Settings.setTimeoutInMinutes(60);
+      CommandLineOptions.setTimeoutInMinutes(60);
       configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
 
       // When
@@ -128,7 +126,7 @@ class ConfigurationViewTest {
       // Given
       final LocalTime currentTime = LocalTime.of(21, 0);
       configurationView.setUsbAdapter(usbAdapter);
-      Settings.setTimeoutInMinutes(60);
+      CommandLineOptions.setTimeoutInMinutes(60);
       configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
       // When
       configurationView.turnOffAutomaticallyIfNeeded(currentTime);
@@ -141,7 +139,7 @@ class ConfigurationViewTest {
       // Given
       final LocalTime currentTime = LocalTime.of(19, 0);
       configurationView.setUsbAdapter(usbAdapter);
-      Settings.setTimeoutInMinutes(60);
+      CommandLineOptions.setTimeoutInMinutes(60);
       configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
       // When
       configurationView.turnOffAutomaticallyIfNeeded(currentTime);
@@ -154,7 +152,7 @@ class ConfigurationViewTest {
       // Given
       final LocalTime currentTime = LocalTime.of(19, 0);
       configurationView.setUsbAdapter(usbAdapter);
-      Settings.setTimeoutInMinutes(60);
+      CommandLineOptions.setTimeoutInMinutes(60);
       // When
       configurationView.turnOffAutomaticallyIfNeeded(currentTime);
       // Then
@@ -168,7 +166,7 @@ class ConfigurationViewTest {
       String[] args = { "-p", expectedPort };
       model.getSerialPorts().setAll("COM1", expectedPort, "COM12");
       // When
-      Settings.handleParameters(args);
+      CommandLineOptions.handleParameters(args);
       configurationView.initializePortChoiceBox();
       // Then
       assertThat(configurationView.portChoiceBox.getValue()).isEqualTo(expectedPort);
@@ -177,7 +175,7 @@ class ConfigurationViewTest {
    @Test
    void shouldGetBrightnessValueWhenCommandLineOptionIsSet() {
       String[] args = { "--brightness", "100" };
-      Settings.handleParameters(args);
+      CommandLineOptions.handleParameters(args);
       configurationView.dataInitialization(usbAdapter);
       assertThat(model.getBrightness()).isEqualTo((byte) 255);
    }
@@ -185,7 +183,7 @@ class ConfigurationViewTest {
    @Test
    void shouldSelectManualRadioButtonWhenCommandLineOptionIsSet() {
       String[] args = { "--mode", "manual" };
-      Settings.handleParameters(args);
+      CommandLineOptions.handleParameters(args);
       configurationView.dataInitialization(usbAdapter);
       assertThat(configurationView.manualRadioButton.isSelected()).isEqualTo(true);
    }
@@ -193,7 +191,7 @@ class ConfigurationViewTest {
    @Test
    void shouldSelectTeamsRadioButtonWhenCommandLineOptionIsSet() {
       String[] args = { "--mode", "teams" };
-      Settings.handleParameters(args);
+      CommandLineOptions.handleParameters(args);
       configurationView.dataInitialization(usbAdapter);
       assertThat(configurationView.teamsRadioButton.isSelected()).isEqualTo(true);
    }

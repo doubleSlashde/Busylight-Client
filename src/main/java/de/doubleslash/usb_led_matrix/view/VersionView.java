@@ -3,7 +3,7 @@ package de.doubleslash.usb_led_matrix.view;
 import java.io.IOException;
 
 import de.doubleslash.usb_led_matrix.App;
-import de.doubleslash.usb_led_matrix.Settings;
+import de.doubleslash.usb_led_matrix.CommandLineOptions;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -19,11 +19,11 @@ public class VersionView {
    private Label versionController;
 
    public void instantiate(final SimpleStringProperty microcontrollerVersionProperty) throws IOException {
-      if (Settings.getColorMode().equals("light")) {
-         Settings.Light(scene);
+      if (CommandLineOptions.getColorMode().equals("light")) {
+         CommandLineOptions.Light(scene);
       }
-      if (Settings.getColorMode().equals("dark")) {
-         Settings.Dark(scene);
+      if (CommandLineOptions.getColorMode().equals("dark")) {
+         CommandLineOptions.Dark(scene);
       }
       versionClient.setText(App.clientVersion);
       versionController.textProperty().bind(microcontrollerVersionProperty);

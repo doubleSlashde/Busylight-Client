@@ -57,5 +57,4 @@ public class GraphTest {
       // Then
       assertEquals(statusColorFromTeams, AvailabilityStatus.Offline.getColor());
    }
-
 }

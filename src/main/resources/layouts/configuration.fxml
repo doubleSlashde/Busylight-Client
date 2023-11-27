@@ -5,6 +5,9 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
@@ -18,8 +21,22 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="403.0" minWidth="494.0" prefHeight="405.0" prefWidth="546.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.doubleslash.usb_led_matrix.view.ConfigurationView">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="403.0" minWidth="494.0" prefHeight="405.0" prefWidth="546.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.doubleslash.usb_led_matrix.view.ConfigurationView">
   <children>
+    <MenuBar>
+      <menus>
+        <Menu mnemonicParsing="false" text="Busylight">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#showSettingsView" text="Settings" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#showInfoView" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
     <HBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="600.0" styleClass="backgroundColor">
       <children>
         <Label prefHeight="56.0" prefWidth="299.0" text="LED Configurator">
@@ -43,30 +60,10 @@
             </LinearGradient>
           </textFill>
         </Label>
-        <AnchorPane prefHeight="63.0" prefWidth="159.0">
+        <AnchorPane prefHeight="60.0" prefWidth="96.0">
           <children>
             <Button fx:id="darkModeButton" layoutX="81.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#toggleDarkMode" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: black; -fx-background-radius: 30;" styleClass="darkMode" text="Dark Mode" textFill="WHITE" visible="false" />
             <Button fx:id="lightModeButton" layoutX="81.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#toggleLightMode" prefHeight="26.0" prefWidth="90.0" style="-fx-background-radius: 30;" styleClass="lightMode" text="Light Mode" />
-          </children>
-        </AnchorPane>
-        <AnchorPane prefHeight="64.0" prefWidth="59.0">
-          <children>
-            <ImageView fitHeight="62.0" fitWidth="65.0" onMouseClicked="#informationImageButton" pickOnBounds="true" styleClass="darkModeImage">
-              <image>
-                <Image url="@../images/information.png" />
-              </image>
-              <cursor>
-                <Cursor fx:constant="HAND" />
-              </cursor>
-            </ImageView>
-            <ImageView fitHeight="62.0" fitWidth="65.0" onMouseClicked="#informationImageButton" styleClass="lightModeImage" visible="false">
-              <image>
-                <Image url="@../images/information_light.png" />
-              </image>
-              <cursor>
-                <Cursor fx:constant="HAND" />
-              </cursor>
-            </ImageView>
           </children>
         </AnchorPane>
       </children>

@@ -6,16 +6,17 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.Properties;
 
+import de.doubleslash.usb_led_matrix.CommandLineOptions;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.doubleslash.usb_led_matrix.Settings;
 import de.doubleslash.usb_led_matrix.graph.Graph;
 import de.doubleslash.usb_led_matrix.json_objects.DeviceCodeAnswer;
 import javafx.fxml.FXML;
@@ -28,7 +29,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 
 public class AuthenticationView {
-   private static final Logger LOG = LoggerFactory.getLogger(AuthenticationView.class);
+   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
    private Scene scene;
 
@@ -73,10 +74,10 @@ public class AuthenticationView {
       pollingMessage.setVisible(false);
       header_Link_Webseite.setVisible(false);
 
-      if (Settings.getColorMode().equals("light")) {
-         Settings.Light(scene);
-      } else if (Settings.getColorMode().equals("dark")) {
-         Settings.Dark(scene);
+      if (CommandLineOptions.getColorMode().equals("light")) {
+         CommandLineOptions.Light(scene);
+      } else if (CommandLineOptions.getColorMode().equals("dark")) {
+         CommandLineOptions.Dark(scene);
       }
       final String fileName = "refreshToken.txt";
       try {
@@ -91,7 +92,7 @@ public class AuthenticationView {
             setTeamsIDButton.fire();
          }
       } catch (IOException e) {
-         LOG.debug("Could not read dile'" + fileName + "': " + e);
+         LOG.debug("Could not read file'{}'", fileName, e);
       }
    }
 
@@ -121,12 +122,12 @@ public class AuthenticationView {
 
    @FXML
    void toggleLightMode(final MouseEvent event) {
-      Settings.Light(scene);
+      CommandLineOptions.Light(scene);
    }
 
    @FXML
    void toggleDarkMode(final MouseEvent event) {
-      Settings.Dark(scene);
+      CommandLineOptions.Dark(scene);
    }
 
    public void setScene(final Scene scene) {
@@ -183,7 +184,7 @@ public class AuthenticationView {
 
          this.deviceCode.set(deviceCode);
       } catch (IOException | InterruptedException e) {
-         LOG.error("Could not retrieve device code: " + e);
+         LOG.error("Could not retrieve device code: ", e);
       }
    }
 }

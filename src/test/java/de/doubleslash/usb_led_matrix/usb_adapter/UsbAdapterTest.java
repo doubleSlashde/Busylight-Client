@@ -1,6 +1,6 @@
 package de.doubleslash.usb_led_matrix.usb_adapter;
 
-import de.doubleslash.usb_led_matrix.Settings;
+import de.doubleslash.usb_led_matrix.CommandLineOptions;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortException;
@@ -71,7 +71,7 @@ public class UsbAdapterTest {
       String[] args = { "-nr", "5" };
 
       // When
-      Settings.handleParameters(args);
+      CommandLineOptions.handleParameters(args);
       usbAdapter = new UsbAdapter();
 
       // Then
