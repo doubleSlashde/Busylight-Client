@@ -57,6 +57,7 @@ public class App extends Application {
       final UsbDeviceView usbDeviceView = new UsbDeviceView(model, usbAdapter);
       usbDeviceView.initialize();
       final Scene scene = new Scene(root);
+      scene.getStylesheets().add("/CSS/Style_Mode.css");
       final ConfigurationView configurationView = fxmlLoader.getController();
       configurationView.setModel(model);
       configurationView.setScene(scene);

@@ -204,6 +204,8 @@ public class ConfigurationView {
          if (!model.isLoggedIntoTeams()) {
             LOG.info("Start Device Code Flow.");
             final Alert alert = new Alert(AlertType.CONFIRMATION);
+            scene.getStylesheets().add("/CSS/Style_Mode.css");
+
             alert.setContentText("You need to log in.");
             final Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
@@ -217,6 +219,8 @@ public class ConfigurationView {
                      final Parent root = fxmlLoader.load();
                      final AuthenticationView authFlow = fxmlLoader.getController();
                      final Scene scene = new Scene(root);
+                     scene.getStylesheets().add("/CSS/Style_Mode.css");
+
                      authFlow.setScene(scene);
                      authFlow.customInitialize();
                      model.deviceCodeProperty().bind(authFlow.getDeviceCodeProperty());
