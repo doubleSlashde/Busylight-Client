@@ -148,6 +148,19 @@ class ConfigurationViewTest {
    }
 
    @Test
+   void shouldGoOutIfTheTimeIsExceededOnTheNextday() {
+      // Given
+      final LocalTime currentTime = LocalTime.of(23,42,39,91);
+      configurationView.setUsbAdapter(usbAdapter);
+      CommandLineOptions.setTimeoutInMinutes(60);
+      configurationView.timeLightsTurnedOffNow = LocalTime.of(01,42,33,747380700);
+      // When
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+      // Then
+      verify(usbAdapter, never()).updatePixel(Color.BLACK);
+   }
+
+   @Test
    void shouldNotThrowExceptionWhenTimeoutTimestampNotSet() {
       // Given
       final LocalTime currentTime = LocalTime.of(19, 0);

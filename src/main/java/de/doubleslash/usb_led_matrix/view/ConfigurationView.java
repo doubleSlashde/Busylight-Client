@@ -429,15 +429,17 @@ public class ConfigurationView {
          selectPortComboBoxItem(CommandLineOptions.getCom());
       }
    }
-
    void turnOffAutomaticallyIfNeeded(final LocalTime currentTime) {
       final LocalTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(CommandLineOptions.getTimeout());
-      if (!currentTime.isBefore(timeLightsTurnedOff) && !timedOut) {
+      //      CurrentTime         23:42:39.091
+      //      timeLightsTurnedOff 01:42:33.747380700
+      if (currentTime.isAfter(timeLightsTurnedOff) && !timedOut) {
          LOG.info("Turn off automatically at '{}'", timeLightsTurnedOff);
          usbAdapter.updatePixel(Color.BLACK);
          timedOut = true;
       }
    }
+
 
    void setUsbAdapter(final UsbAdapter usbAdapter) {
       this.usbAdapter = usbAdapter;
