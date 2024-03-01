@@ -33,6 +33,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +128,7 @@ public class ConfigurationView {
             LOG.debug("Connection check was interrupted.", e);
             return;
          }
-         turnOffAutomaticallyIfNeeded(LocalTime.now());
+         turnOffAutomaticallyIfNeeded(LocalTime.now(),LocalDate.now());
       }
    };
 
@@ -139,7 +141,7 @@ public class ConfigurationView {
             LOG.debug("Reconnection check was interrupted.", e);
             return;
          }
-         turnOffAutomaticallyIfNeeded(LocalTime.now());
+         turnOffAutomaticallyIfNeeded(LocalTime.now(),LocalDate.now());
       }
    };
 
@@ -429,17 +431,29 @@ public class ConfigurationView {
          selectPortComboBoxItem(CommandLineOptions.getCom());
       }
    }
-   void turnOffAutomaticallyIfNeeded(final LocalTime currentTime) {
+
+   void turnOffAutomaticallyIfNeeded(final LocalTime currentTime, LocalDate startDate) {
       final LocalTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(CommandLineOptions.getTimeout());
-      //      CurrentTime         23:42:39.091
-      //      timeLightsTurnedOff 01:42:33.747380700
-      if (currentTime.isAfter(timeLightsTurnedOff) && !timedOut) {
+
+      LocalDate currentDate = LocalDate.now();
+      if (!currentDate.isEqual(startDate)) {
+         timedOut = false;
+         startDate = currentDate;
+      }
+
+      LocalDate turnOffDate = startDate;
+      if (timeLightsTurnedOff.isBefore(timeLightsTurnedOffNow)) {
+         turnOffDate = turnOffDate.plusDays(1);
+      }
+
+      LocalDateTime turnOffDateTime = LocalDateTime.of(turnOffDate, timeLightsTurnedOff);
+
+      if (LocalDateTime.of(currentDate, currentTime).isAfter(turnOffDateTime) && !timedOut) {
          LOG.info("Turn off automatically at '{}'", timeLightsTurnedOff);
          usbAdapter.updatePixel(Color.BLACK);
          timedOut = true;
       }
    }
-
 
    void setUsbAdapter(final UsbAdapter usbAdapter) {
       this.usbAdapter = usbAdapter;

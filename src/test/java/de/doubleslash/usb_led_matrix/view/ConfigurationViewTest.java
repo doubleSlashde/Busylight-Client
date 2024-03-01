@@ -22,6 +22,7 @@ import org.testfx.framework.junit5.Start;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Properties;
 
@@ -82,7 +83,7 @@ class ConfigurationViewTest {
       CommandLineOptions.setTimeoutInMinutes(60);
       configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime,LocalDate.now());
       // Then
       verify(usbAdapter).updatePixel(Color.BLACK);
    }
@@ -96,8 +97,8 @@ class ConfigurationViewTest {
       configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
       // When
 
-      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
-      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime,LocalDate.now());
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime,LocalDate.now());
 
       // Then
       verify(usbAdapter).updatePixel(Color.BLACK);
@@ -113,9 +114,9 @@ class ConfigurationViewTest {
       configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
 
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime,LocalDate.now());
       model.setColor(model.colorProperty().getValue().invert());
-      configurationView.turnOffAutomaticallyIfNeeded(laterCurrentTime);
+      configurationView.turnOffAutomaticallyIfNeeded(laterCurrentTime,LocalDate.now());
 
       // Then
       verify(usbAdapter, times(2)).updatePixel(Color.BLACK);
@@ -124,25 +125,27 @@ class ConfigurationViewTest {
    @Test
    void shouldTurnOffWhenCurrentTimeEqualsTimeout() {
       // Given
-      final LocalTime currentTime = LocalTime.of(21, 0);
+      final LocalTime currentTime = LocalTime.of(20, 0);
+
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-      configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
+      configurationView.timeLightsTurnedOffNow = LocalTime.of(21, 0);
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime, LocalDate.now());
       // Then
-      verify(usbAdapter).updatePixel(Color.BLACK);
+      verify(usbAdapter, never()).updatePixel(Color.BLACK);
    }
 
    @Test
    void shouldNotTurnOffWhenCurrentTimeDoesNotReachTimeout() {
       // Given
       final LocalTime currentTime = LocalTime.of(19, 0);
+
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
       configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime, LocalDate.now());
       // Then
       verify(usbAdapter, never()).updatePixel(Color.BLACK);
    }
@@ -153,12 +156,16 @@ class ConfigurationViewTest {
       final LocalTime currentTime = LocalTime.of(23,42,39,91);
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
+      LocalDate startDate = LocalDate.now().plusDays(1);
       configurationView.timeLightsTurnedOffNow = LocalTime.of(01,42,33,747380700);
+
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime, startDate);
+
       // Then
-      verify(usbAdapter, never()).updatePixel(Color.BLACK);
+      verify(usbAdapter).updatePixel(Color.BLACK);
    }
+
 
    @Test
    void shouldNotThrowExceptionWhenTimeoutTimestampNotSet() {
@@ -167,9 +174,9 @@ class ConfigurationViewTest {
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime,LocalDate.now());
       // Then
-      assertDoesNotThrow(() -> configurationView.turnOffAutomaticallyIfNeeded(currentTime));
+      assertDoesNotThrow(() -> configurationView.turnOffAutomaticallyIfNeeded(currentTime,LocalDate.now()));
    }
 
    @Test
