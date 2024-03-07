@@ -128,7 +128,7 @@ public class ConfigurationView {
             LOG.debug("Connection check was interrupted.", e);
             return;
          }
-         turnOffAutomaticallyIfNeeded(LocalTime.now(),LocalDate.now());
+         turnOffAutomaticallyIfNeeded(LocalDateTime.now());
       }
    };
 
@@ -141,7 +141,7 @@ public class ConfigurationView {
             LOG.debug("Reconnection check was interrupted.", e);
             return;
          }
-         turnOffAutomaticallyIfNeeded(LocalTime.now(),LocalDate.now());
+         turnOffAutomaticallyIfNeeded(LocalDateTime.now());
       }
    };
 
@@ -432,8 +432,11 @@ public class ConfigurationView {
       }
    }
 
-   void turnOffAutomaticallyIfNeeded(final LocalTime currentTime, LocalDate startDate) {
+   void turnOffAutomaticallyIfNeeded(final LocalDateTime currentLocalDateTime) {
       final LocalTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(CommandLineOptions.getTimeout());
+
+      LocalDate startDate = currentLocalDateTime.toLocalDate();
+      LocalTime currentTime = currentLocalDateTime.toLocalTime();
 
       LocalDate currentDate = LocalDate.now();
       if (!currentDate.isEqual(startDate)) {
