@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ConfigurationView {
-   private static final int POLLING_INTERVALL_SECONDS = 10;
+   private static final long POLLING_INTERVALL_SECONDS = 10;
 
    private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

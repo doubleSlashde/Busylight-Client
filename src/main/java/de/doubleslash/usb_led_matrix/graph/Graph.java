@@ -44,15 +44,24 @@ public class Graph {
    private HttpClient client = HttpClient.newHttpClient();
 
    public Graph() {
+      FileInputStream input = null;
       try {
-         final InputStream input = new FileInputStream(refreshFile);
+         input = new FileInputStream(refreshFile);
          properties.load(input);
          final String tenantID = properties.getProperty(TENANT_ID_PROPERTY);
          if (tenantID != null) {
             tokenURI = String.format("https://login.microsoftonline.com/%s/oauth2/v2.0/token", tenantID);
          }
       } catch (IOException e) {
-         LOG.error("Could not load properties from file '{}'", refreshFile.getAbsolutePath(), e);
+         LOG.error("Error loading properties from file '{}'", refreshFile.getAbsolutePath(), e);
+      } finally {
+         if (input != null) {
+            try {
+               input.close();
+            } catch (IOException e) {
+               LOG.error("Error closing FileInputStream", e);
+            }
+         }
       }
    }
 
@@ -213,6 +222,7 @@ public class Graph {
       } catch (final IllegalArgumentException e) {
          LOG.warn("Unknown availability '{}'.", teamsStatus, e);
       }
+      assert availabilityStatus != null;
       return availabilityStatus.getColor();
    }
 }
