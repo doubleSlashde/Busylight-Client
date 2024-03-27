@@ -176,7 +176,10 @@ class ConfigurationViewTest {
       CommandLineOptions.setTimeoutInMinutes(60);
 
 
-      configurationView.timeLightsTurnedOffNow = LocalTime.of(00, 42, 33, 747380700);
+//      LocalDate timeoutDate = currentDate.plusDays(1);
+      LocalDate timeoutDate = LocalDate.of(2024, 12, 24);
+      LocalTime timeoutTime = LocalTime.of(0, 42, 33, 747380700);
+      configurationView.timeLightsTurnedOffNow = timeoutTime;
 
       // When
       configurationView.turnOffAutomaticallyIfNeeded(dateTime);
