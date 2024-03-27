@@ -175,11 +175,9 @@ class ConfigurationViewTest {
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
 
+      LocalDateTime timeoutDateTime = LocalDateTime.of(currentDate.plusDays(1), LocalTime.of(0, 42, 33, 747380700));
 
-//      LocalDate timeoutDate = currentDate.plusDays(1);
-      LocalDate timeoutDate = LocalDate.of(2024, 12, 24);
-      LocalTime timeoutTime = LocalTime.of(0, 42, 33, 747380700);
-      configurationView.timeLightsTurnedOffNow = timeoutTime;
+      configurationView.timeLightsTurnedOffNow = timeoutDateTime.toLocalTime();
 
       // When
       configurationView.turnOffAutomaticallyIfNeeded(dateTime);
