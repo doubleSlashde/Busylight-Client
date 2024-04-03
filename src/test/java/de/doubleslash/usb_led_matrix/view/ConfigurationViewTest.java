@@ -29,7 +29,6 @@ import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(ApplicationExtension.class)
@@ -86,7 +85,7 @@ class ConfigurationViewTest {
 
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-      configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
+      configurationView.timeLightsTurnedOffNow = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 00));
       // When
       configurationView.turnOffAutomaticallyIfNeeded(dateTime);
       // Then
@@ -102,7 +101,8 @@ class ConfigurationViewTest {
 
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-      configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
+      configurationView.timeLightsTurnedOffNow = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 00));
+
       // When
 
       configurationView.turnOffAutomaticallyIfNeeded(dateTime);
@@ -122,7 +122,7 @@ class ConfigurationViewTest {
       final LocalTime laterCurrentTime = LocalTime.of(22, 30);
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-      configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
+      configurationView.timeLightsTurnedOffNow = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 00));
 
       // When
       configurationView.turnOffAutomaticallyIfNeeded(dateTime);
@@ -142,7 +142,7 @@ class ConfigurationViewTest {
 
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-      configurationView.timeLightsTurnedOffNow = LocalTime.of(21, 0);
+      configurationView.timeLightsTurnedOffNow = LocalDateTime.of(LocalDate.now(), LocalTime.of(21, 00));
       // When
       configurationView.turnOffAutomaticallyIfNeeded(dateTime);
       // Then
@@ -158,7 +158,7 @@ class ConfigurationViewTest {
 
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-      configurationView.timeLightsTurnedOffNow = LocalTime.of(20, 0);
+      configurationView.timeLightsTurnedOffNow = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 00));
       // When
       configurationView.turnOffAutomaticallyIfNeeded(dateTime);
       // Then
@@ -170,17 +170,17 @@ class ConfigurationViewTest {
       // Given
       final LocalDate currentDate = LocalDate.of(2024, 12, 23);
       final LocalTime currentTime = LocalTime.of(23, 42, 39, 91);
-      final LocalDateTime dateTime = LocalDateTime.of(currentDate, currentTime);
+      final LocalDateTime currentDateTime = LocalDateTime.of(currentDate, currentTime);
+
+      final LocalDate nextDay = currentDate.plusDays(1);
+      final LocalTime timeoutTime = LocalTime.of(0, 42, 33, 747380700);
+      final LocalDateTime timeoutDateTime = LocalDateTime.of(nextDay, timeoutTime);
 
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-
-      LocalDateTime timeoutDateTime = LocalDateTime.of(currentDate.plusDays(1), LocalTime.of(0, 42, 33, 747380700));
-
-      configurationView.timeLightsTurnedOffNow = timeoutDateTime.toLocalTime();
-
+      configurationView.timeLightsTurnedOffNow = timeoutDateTime;
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(dateTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentDateTime);
 
       // Then
       verify(usbAdapter).updatePixel(Color.BLACK);

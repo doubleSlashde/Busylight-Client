@@ -45,7 +45,7 @@ public class ConfigurationView {
 
    private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-   LocalTime timeLightsTurnedOffNow = LocalTime.now();
+   LocalDateTime timeLightsTurnedOffNow = LocalDateTime.now();
 
    private final Graph graph = new Graph();
 
@@ -330,7 +330,7 @@ public class ConfigurationView {
    public void dataInitialization(final UsbAdapter usbAdapter) {
       LOG.debug("Initialize data of configuration view.");
       model.colorProperty().addListener((observable, oldValue, newValue) -> {
-         timeLightsTurnedOffNow = LocalTime.now();
+         timeLightsTurnedOffNow = LocalDateTime.now();
          timedOut = false;
       });
       this.usbAdapter = usbAdapter;
@@ -432,31 +432,56 @@ public class ConfigurationView {
       }
    }
 
-   void turnOffAutomaticallyIfNeeded(final LocalDateTime currentLocalDateTime) {
-      final LocalTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(CommandLineOptions.getTimeout());
+//   void turnOffAutomaticallyIfNeeded(final LocalDateTime currentLocalDateTime) {
+//      final LocalDateTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(CommandLineOptions.getTimeout());
+//
+//      LocalDate startDate = currentLocalDateTime.toLocalDate();
+//      LocalTime currentTime = currentLocalDateTime.toLocalTime();
+//
+//      LocalDate currentDate = LocalDate.now();
+//      if (!currentDate.isEqual(startDate)) {
+//         timedOut = false;
+//         startDate = currentDate;
+//      }
+//
+//      LocalDate turnOffDate = startDate;
+//      if (timeLightsTurnedOff.isBefore(timeLightsTurnedOffNow)) {
+//         turnOffDate = turnOffDate.plusDays(1);
+//      }
+//
+//      LocalDateTime turnOffDateTime = LocalDateTime.of(turnOffDate, timeLightsTurnedOff);
+//
+//      if (LocalDateTime.of(currentDate, currentTime).isAfter(turnOffDateTime) && !timedOut) {
+//         LOG.info("Turn off automatically at '{}'", timeLightsTurnedOff);
+//         usbAdapter.updatePixel(Color.BLACK);
+//         timedOut = true;
+//      }
+//   }
 
-      LocalDate startDate = currentLocalDateTime.toLocalDate();
+
+   void turnOffAutomaticallyIfNeeded(final LocalDateTime currentLocalDateTime) {
+
+      final LocalDateTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(CommandLineOptions.getTimeout());
+
+
+      LocalDate currentDate = currentLocalDateTime.toLocalDate();
       LocalTime currentTime = currentLocalDateTime.toLocalTime();
 
-      LocalDate currentDate = LocalDate.now();
-      if (!currentDate.isEqual(startDate)) {
+
+      if (!currentDate.equals(timeLightsTurnedOffNow.toLocalDate())) {
          timedOut = false;
-         startDate = currentDate;
+         timeLightsTurnedOffNow = LocalDateTime.of(currentDate, LocalTime.MIN);
       }
 
-      LocalDate turnOffDate = startDate;
-      if (timeLightsTurnedOff.isBefore(timeLightsTurnedOffNow)) {
-         turnOffDate = turnOffDate.plusDays(1);
-      }
-
-      LocalDateTime turnOffDateTime = LocalDateTime.of(turnOffDate, timeLightsTurnedOff);
+      LocalDateTime turnOffDateTime = LocalDateTime.of(currentDate, timeLightsTurnedOff.toLocalTime());
 
       if (LocalDateTime.of(currentDate, currentTime).isAfter(turnOffDateTime) && !timedOut) {
-         LOG.info("Turn off automatically at '{}'", timeLightsTurnedOff);
+         LOG.info("Schalte automatisch um '{}'", timeLightsTurnedOff);
          usbAdapter.updatePixel(Color.BLACK);
          timedOut = true;
       }
    }
+
 
    void setUsbAdapter(final UsbAdapter usbAdapter) {
       this.usbAdapter = usbAdapter;
