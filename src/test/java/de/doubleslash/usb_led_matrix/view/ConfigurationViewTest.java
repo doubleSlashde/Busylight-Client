@@ -134,8 +134,7 @@ class ConfigurationViewTest {
    }
 
    @Test
-   void shouldTurnOffWhenCurrentTimeEqualsTimeout() {
-      // Given
+   void shouldNotUpdatePixelWhenCurrentTimeEqualsTimeout() {      // Given
       final LocalTime currentTime = LocalTime.of(20, 0);
       final LocalDate currentDate = LocalDate.now();
       final LocalDateTime dateTime = LocalDateTime.of(currentDate, currentTime);

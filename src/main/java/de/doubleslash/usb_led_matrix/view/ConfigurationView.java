@@ -432,33 +432,6 @@ public class ConfigurationView {
       }
    }
 
-//   void turnOffAutomaticallyIfNeeded(final LocalDateTime currentLocalDateTime) {
-//      final LocalDateTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(CommandLineOptions.getTimeout());
-//
-//      LocalDate startDate = currentLocalDateTime.toLocalDate();
-//      LocalTime currentTime = currentLocalDateTime.toLocalTime();
-//
-//      LocalDate currentDate = LocalDate.now();
-//      if (!currentDate.isEqual(startDate)) {
-//         timedOut = false;
-//         startDate = currentDate;
-//      }
-//
-//      LocalDate turnOffDate = startDate;
-//      if (timeLightsTurnedOff.isBefore(timeLightsTurnedOffNow)) {
-//         turnOffDate = turnOffDate.plusDays(1);
-//      }
-//
-//      LocalDateTime turnOffDateTime = LocalDateTime.of(turnOffDate, timeLightsTurnedOff);
-//
-//      if (LocalDateTime.of(currentDate, currentTime).isAfter(turnOffDateTime) && !timedOut) {
-//         LOG.info("Turn off automatically at '{}'", timeLightsTurnedOff);
-//         usbAdapter.updatePixel(Color.BLACK);
-//         timedOut = true;
-//      }
-//   }
-
-
    void turnOffAutomaticallyIfNeeded(final LocalDateTime currentLocalDateTime) {
 
       final LocalDateTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(CommandLineOptions.getTimeout());
