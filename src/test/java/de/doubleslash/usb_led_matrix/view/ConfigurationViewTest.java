@@ -172,7 +172,7 @@ class ConfigurationViewTest {
       final LocalDateTime currentDateTime = LocalDateTime.of(currentDate, currentTime);
 
       final LocalDate nextDay = currentDate.plusDays(1);
-      final LocalTime timeoutTime = LocalTime.of(0, 42, 33, 747380700);
+      final LocalTime timeoutTime = LocalTime.of(0, 43, 33, 747380700);
       final LocalDateTime timeoutDateTime = LocalDateTime.of(nextDay, timeoutTime);
 
       configurationView.setUsbAdapter(usbAdapter);
