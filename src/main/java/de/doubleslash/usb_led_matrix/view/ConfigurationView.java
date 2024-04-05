@@ -33,9 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +43,7 @@ public class ConfigurationView {
 
    private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-   LocalDateTime timeLightsTurnedOffNow = LocalDateTime.now();
+   LocalDateTime currentTimeWithLightsOff = LocalDateTime.now(); // Aktuelle zeit beim starten plus die zeit beim ausgehen wenn sich der Status nicht ändert
 
    private final Graph graph = new Graph();
 
@@ -330,7 +328,7 @@ public class ConfigurationView {
    public void dataInitialization(final UsbAdapter usbAdapter) {
       LOG.debug("Initialize data of configuration view.");
       model.colorProperty().addListener((observable, oldValue, newValue) -> {
-         timeLightsTurnedOffNow = LocalDateTime.now();
+         currentTimeWithLightsOff = LocalDateTime.now();
          timedOut = false;
       });
       this.usbAdapter = usbAdapter;
@@ -433,23 +431,10 @@ public class ConfigurationView {
    }
 
    void turnOffAutomaticallyIfNeeded(final LocalDateTime currentLocalDateTime) {
+      final LocalDateTime timeLightsTurnedOff = currentTimeWithLightsOff.plusMinutes(CommandLineOptions.getTimeout());
 
-      final LocalDateTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(CommandLineOptions.getTimeout());
-
-
-      LocalDate currentDate = currentLocalDateTime.toLocalDate();
-      LocalTime currentTime = currentLocalDateTime.toLocalTime();
-
-
-      if (!currentDate.equals(timeLightsTurnedOffNow.toLocalDate())) {
-         timedOut = false;
-         timeLightsTurnedOffNow = LocalDateTime.of(currentDate, LocalTime.MIN);
-      }
-
-      LocalDateTime turnOffDateTime = LocalDateTime.of(currentDate, timeLightsTurnedOff.toLocalTime());
-
-      if (LocalDateTime.of(currentDate, currentTime).isAfter(turnOffDateTime) && !timedOut) {
-         LOG.info("Schalte automatisch um '{}'", timeLightsTurnedOff);
+      if (currentLocalDateTime.isAfter(timeLightsTurnedOff) && !timedOut) {
+         LOG.info("turn of '{}'", timeLightsTurnedOff);
          usbAdapter.updatePixel(Color.BLACK);
          timedOut = true;
       }

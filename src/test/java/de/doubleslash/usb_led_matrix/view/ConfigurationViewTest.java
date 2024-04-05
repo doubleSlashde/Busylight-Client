@@ -79,15 +79,14 @@ class ConfigurationViewTest {
    @Test
    void shouldTurnOffWhenCurrentTimeExceedsTimeout() {
       // Given
-      final LocalTime currentTime = LocalTime.of(22, 0);
-      final LocalDate currentDate = LocalDate.now();
-      final LocalDateTime dateTime = LocalDateTime.of(currentDate, currentTime);
-
+      final LocalDateTime currentTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(22, 0));
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-      configurationView.timeLightsTurnedOffNow = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 00));
+      configurationView.currentTimeWithLightsOff = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 0));
+
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(dateTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+
       // Then
       verify(usbAdapter).updatePixel(Color.BLACK);
    }
@@ -95,18 +94,14 @@ class ConfigurationViewTest {
    @Test
    void shouldOnlyTurnOffOnceWhenCurrentTimeExceedsTheTimeoutTwice() {
       // Given
-      final LocalTime currentTime = LocalTime.of(22, 0);
-      final LocalDate currentDate = LocalDate.now();
-      final LocalDateTime dateTime = LocalDateTime.of(currentDate, currentTime);
-
+      final LocalDateTime currentTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(22, 0));
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-      configurationView.timeLightsTurnedOffNow = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 00));
+      configurationView.currentTimeWithLightsOff = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 0));
 
       // When
-
-      configurationView.turnOffAutomaticallyIfNeeded(dateTime);
-      configurationView.turnOffAutomaticallyIfNeeded(dateTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
 
       // Then
       verify(usbAdapter).updatePixel(Color.BLACK);
@@ -115,51 +110,64 @@ class ConfigurationViewTest {
    @Test
    void shouldLeaveTimeoutWhenColorChanges() {
       // Given
-      final LocalTime currentTime = LocalTime.of(22, 0);
-      final LocalDate currentDate = LocalDate.now();
-      final LocalDateTime dateTime = LocalDateTime.of(currentDate, currentTime);
-
-      final LocalTime laterCurrentTime = LocalTime.of(22, 30);
+      final LocalDateTime currentTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(22, 0));
+      final LocalDateTime laterCurrentTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(22, 30));
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-      configurationView.timeLightsTurnedOffNow = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 00));
+      configurationView.currentTimeWithLightsOff = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 0));
 
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(dateTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
       model.setColor(model.colorProperty().getValue().invert());
-      configurationView.turnOffAutomaticallyIfNeeded(dateTime);
+      configurationView.turnOffAutomaticallyIfNeeded(laterCurrentTime);
 
       // Then
       verify(usbAdapter, times(2)).updatePixel(Color.BLACK);
    }
 
    @Test
-   void shouldNotUpdatePixelWhenCurrentTimeEqualsTimeout() {      // Given
-      final LocalTime currentTime = LocalTime.of(20, 0);
-      final LocalDate currentDate = LocalDate.now();
-      final LocalDateTime dateTime = LocalDateTime.of(currentDate, currentTime);
-
+   void shouldNotUpdatePixelWhenCurrentTimeEqualsTimeout() {
+      // Given
+      final LocalDateTime currentTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 0));
+      final LocalDateTime timeoutTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(21, 0));
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-      configurationView.timeLightsTurnedOffNow = LocalDateTime.of(LocalDate.now(), LocalTime.of(21, 00));
+      configurationView.currentTimeWithLightsOff = timeoutTime;
+
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(dateTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+
       // Then
       verify(usbAdapter, never()).updatePixel(Color.BLACK);
    }
 
+
+//   @Test
+//   void shouldTurnOffWhenCurrentTimeEqualsTimeout() {
+//      final LocalDateTime currentDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(21, 0));
+//
+//      // Given
+//      configurationView.setUsbAdapter(usbAdapter);
+//      CommandLineOptions.setTimeoutInMinutes(60);
+//      configurationView.currentTimeWithLightsOff = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 00));
+//
+//      // When
+//      configurationView.turnOffAutomaticallyIfNeeded(currentDateTime);
+//      // Then
+//      verify(usbAdapter).updatePixel(Color.BLACK);
+//   }
+
    @Test
    void shouldNotTurnOffWhenCurrentTimeDoesNotReachTimeout() {
       // Given
-      final LocalTime currentTime = LocalTime.of(19, 0);
-      final LocalDate currentDate = LocalDate.now();
-      final LocalDateTime dateTime = LocalDateTime.of(currentDate, currentTime);
-
+      final LocalDateTime currentTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(19, 0));
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
-      configurationView.timeLightsTurnedOffNow = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 00));
+      configurationView.currentTimeWithLightsOff = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 0));
+
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(dateTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentTime);
+
       // Then
       verify(usbAdapter, never()).updatePixel(Color.BLACK);
    }
@@ -188,16 +196,14 @@ class ConfigurationViewTest {
    @Test
    void shouldNotThrowExceptionWhenTimeoutTimestampNotSet() {
       // Given
-      final LocalTime currentTime = LocalTime.of(19, 0);
-      final LocalDate currentDate = LocalDate.now();
-      final LocalDateTime dateTime = LocalDateTime.of(currentDate, currentTime);
+      final LocalDateTime currentDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(19, 0));
 
       configurationView.setUsbAdapter(usbAdapter);
       CommandLineOptions.setTimeoutInMinutes(60);
       // When
-      configurationView.turnOffAutomaticallyIfNeeded(dateTime);
+      configurationView.turnOffAutomaticallyIfNeeded(currentDateTime);
       // Then
-      assertDoesNotThrow(() -> configurationView.turnOffAutomaticallyIfNeeded(dateTime));
+      assertDoesNotThrow(() -> configurationView.turnOffAutomaticallyIfNeeded(currentDateTime));
    }
 
    @Test
