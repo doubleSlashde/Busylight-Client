@@ -43,8 +43,7 @@ public class ConfigurationView {
 
    private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-   LocalDateTime currentTimeWithLightsOff = LocalDateTime.now(); // Aktuelle zeit beim starten plus die zeit beim ausgehen wenn sich der Status nicht ändert
-
+   LocalDateTime timeLastColorChange = LocalDateTime.now();
    private final Graph graph = new Graph();
 
    private final Stage popUpStage = new Stage();
@@ -328,7 +327,7 @@ public class ConfigurationView {
    public void dataInitialization(final UsbAdapter usbAdapter) {
       LOG.debug("Initialize data of configuration view.");
       model.colorProperty().addListener((observable, oldValue, newValue) -> {
-         currentTimeWithLightsOff = LocalDateTime.now();
+         timeLastColorChange = LocalDateTime.now();
          timedOut = false;
       });
       this.usbAdapter = usbAdapter;
@@ -431,14 +430,14 @@ public class ConfigurationView {
    }
 
    void turnOffAutomaticallyIfNeeded(final LocalDateTime currentLocalDateTime) {
-      final LocalDateTime timeLightsTurnedOff = currentTimeWithLightsOff.plusMinutes(CommandLineOptions.getTimeout());
-
-      if (currentLocalDateTime.isAfter(timeLightsTurnedOff) && !timedOut) {
+      final LocalDateTime timeLightsTurnedOff = timeLastColorChange.plusMinutes(CommandLineOptions.getTimeout());
+      if (!currentLocalDateTime.isBefore(timeLightsTurnedOff) && !timedOut) {
          LOG.info("turn of '{}'", timeLightsTurnedOff);
          usbAdapter.updatePixel(Color.BLACK);
          timedOut = true;
       }
    }
+
 
 
    void setUsbAdapter(final UsbAdapter usbAdapter) {
