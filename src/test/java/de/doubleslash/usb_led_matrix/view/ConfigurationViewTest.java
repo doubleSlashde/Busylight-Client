@@ -28,7 +28,6 @@ import java.time.LocalTime;
 import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(ApplicationExtension.class)
@@ -104,9 +103,7 @@ class ConfigurationViewTest {
       configurationView.turnOffAutomaticallyIfNeeded(currentTime);
 
       // Then
-
       verify(usbAdapter, times(1)).updatePixel(Color.BLACK);
-
    }
 
    @Test

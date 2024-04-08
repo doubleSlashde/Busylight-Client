@@ -438,8 +438,6 @@ public class ConfigurationView {
       }
    }
 
-
-
    void setUsbAdapter(final UsbAdapter usbAdapter) {
       this.usbAdapter = usbAdapter;
    }
