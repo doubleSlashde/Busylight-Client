@@ -432,7 +432,7 @@ public class ConfigurationView {
    void turnOffAutomaticallyIfNeeded(final LocalDateTime currentLocalDateTime) {
       final LocalDateTime timeLightsTurnedOff = timeLastColorChange.plusMinutes(CommandLineOptions.getTimeout());
       if (!currentLocalDateTime.isBefore(timeLightsTurnedOff) && !timedOut) {
-         LOG.info("turn of '{}'", timeLightsTurnedOff);
+         LOG.info("Turn off automatically at '{}'", timeLightsTurnedOff);
          usbAdapter.updatePixel(Color.BLACK);
          timedOut = true;
       }
