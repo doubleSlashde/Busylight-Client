@@ -143,6 +143,7 @@ public class AuthenticationView {
          p.setProperty("tenant_id", tenantIDTextField.getText());
          p.setProperty("client_id", clientIDTextField.getText());
          p.store(fw, "Sample comments");
+         fw.close();
       } catch (IOException e) {
          throw new RuntimeException(e);
       }

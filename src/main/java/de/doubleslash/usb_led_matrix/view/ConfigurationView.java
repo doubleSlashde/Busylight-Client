@@ -94,6 +94,7 @@ public class ConfigurationView {
             Thread.sleep(POLLING_INTERVALL_SECONDS * 1000);
          } catch (final InterruptedException e) {
             LOG.debug("Manual mode was interrupted.", e);
+            Thread.currentThread().interrupt();
             return;
          }
       }
@@ -111,6 +112,7 @@ public class ConfigurationView {
             Thread.sleep(POLLING_INTERVALL_SECONDS * 1000);
          } catch (final InterruptedException ie) {
             LOG.debug("MS Teams status polling was interrupted.", ie);
+            Thread.currentThread().interrupt();
             return;
          }
       }
@@ -124,6 +126,7 @@ public class ConfigurationView {
             Thread.sleep(POLLING_INTERVALL_SECONDS * 1000);
          } catch (final InterruptedException e) {
             LOG.debug("Connection check was interrupted.", e);
+            Thread.currentThread().interrupt();
             return;
          }
          turnOffAutomaticallyIfNeeded(LocalTime.now());
@@ -137,6 +140,8 @@ public class ConfigurationView {
             Thread.sleep(POLLING_INTERVALL_SECONDS * 1000);
          } catch (final InterruptedException e) {
             LOG.debug("Reconnection check was interrupted.", e);
+            Thread.currentThread().interrupt();
+
             return;
          }
          turnOffAutomaticallyIfNeeded(LocalTime.now());
@@ -156,6 +161,7 @@ public class ConfigurationView {
                Thread.sleep(POLLING_INTERVALL_SECONDS * 500);
             } catch (IOException | InterruptedException e) {
                LOG.error("Could not get answer from server.", e);
+               Thread.currentThread().interrupt();
             }
          }
          if (answerBody.contains("access_token")) {
