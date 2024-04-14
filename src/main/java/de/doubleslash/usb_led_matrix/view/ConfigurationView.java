@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,8 +43,7 @@ public class ConfigurationView {
 
    private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-   LocalTime timeLightsTurnedOffNow = LocalTime.now();
-
+   LocalDateTime timeLastColorChange = LocalDateTime.now();
    private final Graph graph = new Graph();
 
    private final Stage popUpStage = new Stage();
@@ -126,7 +125,7 @@ public class ConfigurationView {
             LOG.debug("Connection check was interrupted.", e);
             return;
          }
-         turnOffAutomaticallyIfNeeded(LocalTime.now());
+         turnOffAutomaticallyIfNeeded(LocalDateTime.now());
       }
    };
 
@@ -139,7 +138,7 @@ public class ConfigurationView {
             LOG.debug("Reconnection check was interrupted.", e);
             return;
          }
-         turnOffAutomaticallyIfNeeded(LocalTime.now());
+         turnOffAutomaticallyIfNeeded(LocalDateTime.now());
       }
    };
 
@@ -328,7 +327,7 @@ public class ConfigurationView {
    public void dataInitialization(final UsbAdapter usbAdapter) {
       LOG.debug("Initialize data of configuration view.");
       model.colorProperty().addListener((observable, oldValue, newValue) -> {
-         timeLightsTurnedOffNow = LocalTime.now();
+         timeLastColorChange = LocalDateTime.now();
          timedOut = false;
       });
       this.usbAdapter = usbAdapter;
@@ -430,9 +429,9 @@ public class ConfigurationView {
       }
    }
 
-   void turnOffAutomaticallyIfNeeded(final LocalTime currentTime) {
-      final LocalTime timeLightsTurnedOff = timeLightsTurnedOffNow.plusMinutes(CommandLineOptions.getTimeout());
-      if (!currentTime.isBefore(timeLightsTurnedOff) && !timedOut) {
+   void turnOffAutomaticallyIfNeeded(final LocalDateTime currentLocalDateTime) {
+      final LocalDateTime timeLightsTurnedOff = timeLastColorChange.plusMinutes(CommandLineOptions.getTimeout());
+      if (!currentLocalDateTime.isBefore(timeLightsTurnedOff) && !timedOut) {
          LOG.info("Turn off automatically at '{}'", timeLightsTurnedOff);
          usbAdapter.updatePixel(Color.BLACK);
          timedOut = true;
