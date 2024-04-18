@@ -91,6 +91,7 @@ public class AuthenticationView {
             clientIDTextField.setText(clientID);
             setTeamsIDButton.fire();
          }
+         input.close();
       } catch (IOException e) {
          LOG.debug("Could not read file'{}'", fileName, e);
       }
@@ -186,6 +187,7 @@ public class AuthenticationView {
          this.deviceCode.set(deviceCode);
       } catch (IOException | InterruptedException e) {
          LOG.error("Could not retrieve device code: ", e);
+         Thread.currentThread().interrupt();
       }
    }
 }

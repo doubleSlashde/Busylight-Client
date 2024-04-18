@@ -179,6 +179,7 @@ public class Graph {
       }
 
       extractAndStoreAccessRefreshToken(response.body());
+      input.close();
    }
 
    public boolean isRefreshTokenAvailable() {
