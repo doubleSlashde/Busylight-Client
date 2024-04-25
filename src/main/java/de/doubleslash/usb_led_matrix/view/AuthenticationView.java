@@ -80,8 +80,7 @@ public class AuthenticationView {
          CommandLineOptions.Dark(scene);
       }
       final String fileName = "refreshToken.txt";
-      try {
-         final InputStream input = new FileInputStream(new File(fileName));
+      try (InputStream input = new FileInputStream(new File(fileName))) {
          final Properties properties = new Properties();
          properties.load(input);
          final String tenantID = properties.getProperty("tenant_id");
@@ -91,7 +90,6 @@ public class AuthenticationView {
             clientIDTextField.setText(clientID);
             setTeamsIDButton.fire();
          }
-         input.close();
       } catch (IOException e) {
          LOG.debug("Could not read file'{}'", fileName, e);
       }
@@ -137,14 +135,11 @@ public class AuthenticationView {
 
    @FXML
    void setTeamsID(ActionEvent event) {
-      final FileWriter fw;
-      try {
-         fw = new FileWriter("refreshToken.txt");
+      try (FileWriter fw = new FileWriter("refreshToken.txt")) {
          final Properties p = new Properties();
          p.setProperty("tenant_id", tenantIDTextField.getText());
          p.setProperty("client_id", clientIDTextField.getText());
          p.store(fw, "Sample comments");
-         fw.close();
       } catch (IOException e) {
          throw new RuntimeException(e);
       }

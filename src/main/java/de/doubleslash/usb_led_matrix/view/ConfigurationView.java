@@ -159,7 +159,9 @@ public class ConfigurationView {
                answerBody = graph.pollingForToken(model.getDeviceCode());
                LOG.debug("Polling for token. Answer was: '{}'.", answerBody);
                Thread.sleep(POLLING_INTERVALL_SECONDS * 500);
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
+               LOG.error("Could not get answer from server.", e);
+            } catch (InterruptedException e) {
                LOG.error("Could not get answer from server.", e);
                Thread.currentThread().interrupt();
             }

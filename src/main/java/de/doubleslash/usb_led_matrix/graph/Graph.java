@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,9 +45,7 @@ public class Graph {
    private HttpClient client = HttpClient.newHttpClient();
 
    public Graph() {
-      FileInputStream input = null;
-      try {
-         input = new FileInputStream(refreshFile);
+      try (FileInputStream input = new FileInputStream(refreshFile)) {
          properties.load(input);
          final String tenantID = properties.getProperty(TENANT_ID_PROPERTY);
          if (tenantID != null) {
@@ -54,14 +53,6 @@ public class Graph {
          }
       } catch (IOException e) {
          LOG.error("Error loading properties from file '{}'", refreshFile.getAbsolutePath(), e);
-      } finally {
-         if (input != null) {
-            try {
-               input.close();
-            } catch (IOException e) {
-               LOG.error("Error closing FileInputStream", e);
-            }
-         }
       }
    }
 
@@ -152,8 +143,9 @@ public class Graph {
    }
 
    private void getNewAccessToken() throws IOException, InterruptedException {
-      final InputStream input = new FileInputStream(refreshFile);
-      properties.load(input);
+      try (InputStream input = new FileInputStream(refreshFile)) {
+         properties.load(input);
+      }
 
       final Map<Object, Object> values = new HashMap<>();
 
@@ -179,7 +171,6 @@ public class Graph {
       }
 
       extractAndStoreAccessRefreshToken(response.body());
-      input.close();
    }
 
    public boolean isRefreshTokenAvailable() {
@@ -223,7 +214,10 @@ public class Graph {
       } catch (final IllegalArgumentException e) {
          LOG.warn("Unknown availability '{}'.", teamsStatus, e);
       }
-      assert availabilityStatus != null;
-      return availabilityStatus.getColor();
+      if (availabilityStatus != null) {
+         return availabilityStatus.getColor();
+      } else {
+         return null;
+      }
    }
 }
