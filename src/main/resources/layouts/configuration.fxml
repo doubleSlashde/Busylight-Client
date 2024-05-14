@@ -35,6 +35,11 @@
             <MenuItem mnemonicParsing="false" onAction="#showInfoView" text="About" />
           </items>
         </Menu>
+            <Menu mnemonicParsing="false" text="CO2">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#showCo2View" text="CO2-Sensor Daten" />
+               </items>
+            </Menu>
       </menus>
     </MenuBar>
     <HBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="600.0" styleClass="backgroundColor">

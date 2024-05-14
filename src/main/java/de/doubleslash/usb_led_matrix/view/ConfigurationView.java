@@ -478,6 +478,28 @@ public class ConfigurationView {
    }
 
    @FXML
+      void showCo2View() {
+         final FXMLLoader fxmlLoader = new FXMLLoader(Resources.CO2_VIEW.getResource());
+         try {
+            Stage stage = new Stage();
+            final Parent root = fxmlLoader.load();
+            final Scene scene = new Scene(root);
+
+            stage.setTitle("Co2 Sensordaten");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+         } catch (final IOException e) {
+            LOG.error("Could not load view '{}'.", Resources.CO2_VIEW, e);
+         }
+      }
+
+
+
+
+
+   @FXML
    void showSettingsView() {
       final FXMLLoader fxmlLoader = new FXMLLoader(Resources.SETTINGS_VIEW.getResource());
       try {
