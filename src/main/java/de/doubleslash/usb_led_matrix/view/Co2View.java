@@ -1,8 +1,11 @@
 package de.doubleslash.usb_led_matrix.view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,13 +23,17 @@ public class Co2View {
    @FXML
    private Label temperaturValue;
 
-   @FXML
-   private VBox vBox;
+   private Timeline timeline;
 
    public void initialize() {
-      String[] urls = {
-            "http://172.19.70.169/temperatur",
-            "http://172.19.70.169/feuchtigkeit",
+      timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> updateValue()));
+      timeline.setCycleCount(Timeline.INDEFINITE);
+      timeline.play();
+      updateValue();
+   }
+
+   public void updateValue() {
+      String[] urls = { "http://172.19.70.169/temperatur", "http://172.19.70.169/feuchtigkeit",
             "http://172.19.70.169/co2"
       };
 
