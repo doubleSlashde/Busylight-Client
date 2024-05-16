@@ -404,7 +404,7 @@ public class ConfigurationView {
       usbAdapter.closePort();
       startNamedThreadWithRunnable(reconnectionCheckRunnable, "reconnectionThread");
    }
-
+Co2View co2View;
    private void startNamedThreadWithRunnable(final Runnable runnable, final String name) {
       if (currentlyRunningThread != null && currentlyRunningThread.isAlive()) {
          currentlyRunningThread.interrupt();
@@ -412,7 +412,7 @@ public class ConfigurationView {
       currentlyRunningThread = new Thread(runnable);
       currentlyRunningThread.setName(name);
       currentlyRunningThread.start();
-   }
+  }
 
    void reconnect() {
       usbAdapter.connect();
