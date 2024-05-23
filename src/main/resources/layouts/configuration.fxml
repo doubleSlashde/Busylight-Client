@@ -35,7 +35,7 @@
             <MenuItem mnemonicParsing="false" onAction="#showInfoView" text="About" />
           </items>
         </Menu>
-            <Menu mnemonicParsing="false" text="CO2">
+            <Menu mnemonicParsing="false" text="Sensor">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#showCo2View" text="CO2-Sensor Daten" />
                </items>

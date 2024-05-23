@@ -13,12 +13,12 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="583.0" style="-fx-background-color: black;" styleClass="backgroundColor" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.doubleslash.usb_led_matrix.view.Co2View">
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="585.0" style="-fx-background-color: black;" styleClass="backgroundColor" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.doubleslash.usb_led_matrix.view.Co2View">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="backgroundColor">
+      <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="585.0" styleClass="backgroundColor">
          <children>
             <AnchorPane prefHeight="47.0" prefWidth="207.0" />
-            <Label prefHeight="81.0" prefWidth="252.0" text="Co2- Werte">
+            <Label prefHeight="81.0" prefWidth="252.0" text="Sensor Values">
                <font>
                   <Font size="32.0" />
                </font>
@@ -32,7 +32,7 @@
                         </Stop>
                         <Stop offset="1.0">
                            <color>
-                              <Color red="0.3450980484485626" green="0.7686274647712708" blue="0.26274511218070984" />
+                              <Color red="0.4745098054409027" green="0.7882353067398071" blue="0.40784314274787903" />
                            </color>
                         </Stop>
                      </stops>
@@ -63,9 +63,9 @@
             </Line>
             <HBox prefHeight="16.0" prefWidth="586.0">
                <children>
-                  <Label prefHeight="36.0" prefWidth="108.0" text="Werte:" textFill="#58c443">
+                  <Label prefHeight="36.0" prefWidth="124.0" text="Values:" textFill="#79c968">
                      <font>
-                        <Font name="System Italic" size="25.0" />
+                        <Font size="25.0" />
                      </font>
                      <padding>
                         <Insets left="35.0" />
@@ -75,7 +75,7 @@
             </HBox>
             <HBox prefHeight="60.0" prefWidth="586.0">
                <children>
-                  <Label prefHeight="26.0" prefWidth="212.0" styleClass="labelText" text="Ip Addrese eingabe:" textFill="WHITE">
+                  <Label prefHeight="26.0" prefWidth="212.0" styleClass="labelText" text="Ip Addrese input:" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -83,8 +83,9 @@
                         <Insets left="34.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="IPEingabe" prefHeight="26.0" prefWidth="227.0" promptText=" IP Addresse eingeben" />
-                  <Button mnemonicParsing="false" onAction="#IPButtonSave" opacity="0.0" text="Save" />
+                  <TextField fx:id="IPEingabe" prefHeight="26.0" prefWidth="227.0" promptText="Ip address " />
+                  <AnchorPane prefHeight="18.0" prefWidth="11.0" />
+                  <Button mnemonicParsing="false" onAction="#IPButtonSave" prefHeight="30.0" prefWidth="68.0" style="-fx-background-radius: 5;" text="Save" />
                </children>
             </HBox>
             <Line endX="480.878662109375" endY="-2.1213202476501465" startX="-100.0" strokeWidth="3.0">
@@ -117,7 +118,7 @@
                               <Insets left="34.0" />
                            </padding>
                         </Label>
-                        <Label prefHeight="26.0" prefWidth="171.0" styleClass="labelText" text="Feuchtigkeit:" textFill="WHITE">
+                        <Label prefHeight="26.0" prefWidth="171.0" styleClass="labelText" text="Humidity:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
@@ -125,7 +126,7 @@
                               <Insets left="34.0" />
                            </padding>
                         </Label>
-                        <Label prefHeight="26.0" prefWidth="171.0" styleClass="labelText" text="Temperatur" textFill="WHITE">
+                        <Label prefHeight="26.0" prefWidth="171.0" styleClass="labelText" text="Temperature:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
