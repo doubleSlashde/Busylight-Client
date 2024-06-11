@@ -180,9 +180,13 @@ public class AuthenticationView {
          initializeCopyButton();
 
          this.deviceCode.set(deviceCode);
-      } catch (IOException | InterruptedException e) {
+      } catch (IOException e) {
          LOG.error("Could not retrieve device code: ", e);
+   ;
+      } catch (InterruptedException e) {
          Thread.currentThread().interrupt();
+         LOG.error("CurrentThread was interrupt");
+
       }
    }
 }
