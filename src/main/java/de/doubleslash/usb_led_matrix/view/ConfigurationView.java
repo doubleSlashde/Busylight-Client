@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ConfigurationView {
-   private static final int POLLING_INTERVALL_SECONDS = 10;
+   private static final long POLLING_INTERVALL_SECONDS = 10;
 
    private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -93,6 +93,7 @@ public class ConfigurationView {
             Thread.sleep(POLLING_INTERVALL_SECONDS * 1000);
          } catch (final InterruptedException e) {
             LOG.debug("Manual mode was interrupted.", e);
+            Thread.currentThread().interrupt();
             return;
          }
       }
@@ -110,6 +111,7 @@ public class ConfigurationView {
             Thread.sleep(POLLING_INTERVALL_SECONDS * 1000);
          } catch (final InterruptedException ie) {
             LOG.debug("MS Teams status polling was interrupted.", ie);
+            Thread.currentThread().interrupt();
             return;
          }
       }
@@ -123,6 +125,7 @@ public class ConfigurationView {
             Thread.sleep(POLLING_INTERVALL_SECONDS * 1000);
          } catch (final InterruptedException e) {
             LOG.debug("Connection check was interrupted.", e);
+            Thread.currentThread().interrupt();
             return;
          }
          turnOffAutomaticallyIfNeeded(LocalDateTime.now());
@@ -136,6 +139,8 @@ public class ConfigurationView {
             Thread.sleep(POLLING_INTERVALL_SECONDS * 1000);
          } catch (final InterruptedException e) {
             LOG.debug("Reconnection check was interrupted.", e);
+            Thread.currentThread().interrupt();
+
             return;
          }
          turnOffAutomaticallyIfNeeded(LocalDateTime.now());
@@ -153,8 +158,11 @@ public class ConfigurationView {
                answerBody = graph.pollingForToken(model.getDeviceCode());
                LOG.debug("Polling for token. Answer was: '{}'.", answerBody);
                Thread.sleep(POLLING_INTERVALL_SECONDS * 500);
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                LOG.error("Could not get answer from server.", e);
+            } catch (InterruptedException e) {
+               LOG.error("Could not get answer from server.", e);
+               Thread.currentThread().interrupt();
             }
          }
          if (answerBody.contains("access_token")) {

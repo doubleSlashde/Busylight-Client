@@ -80,8 +80,7 @@ public class AuthenticationView {
          CommandLineOptions.Dark(scene);
       }
       final String fileName = "refreshToken.txt";
-      try {
-         final InputStream input = new FileInputStream(new File(fileName));
+      try (InputStream input = new FileInputStream(new File(fileName))) {
          final Properties properties = new Properties();
          properties.load(input);
          final String tenantID = properties.getProperty("tenant_id");
@@ -136,9 +135,7 @@ public class AuthenticationView {
 
    @FXML
    void setTeamsID(ActionEvent event) {
-      final FileWriter fw;
-      try {
-         fw = new FileWriter("refreshToken.txt");
+      try (FileWriter fw = new FileWriter("refreshToken.txt")) {
          final Properties p = new Properties();
          p.setProperty("tenant_id", tenantIDTextField.getText());
          p.setProperty("client_id", clientIDTextField.getText());
@@ -183,8 +180,11 @@ public class AuthenticationView {
          initializeCopyButton();
 
          this.deviceCode.set(deviceCode);
-      } catch (IOException | InterruptedException e) {
+      } catch (IOException e) {
          LOG.error("Could not retrieve device code: ", e);
+      } catch (InterruptedException e) {
+         LOG.error("CurrentThread was interrupt", e);
+         Thread.currentThread().interrupt();
       }
    }
 }

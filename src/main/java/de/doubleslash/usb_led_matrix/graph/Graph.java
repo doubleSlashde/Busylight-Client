@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,15 +45,14 @@ public class Graph {
    private HttpClient client = HttpClient.newHttpClient();
 
    public Graph() {
-      try {
-         final InputStream input = new FileInputStream(refreshFile);
+      try (FileInputStream input = new FileInputStream(refreshFile)) {
          properties.load(input);
          final String tenantID = properties.getProperty(TENANT_ID_PROPERTY);
          if (tenantID != null) {
             tokenURI = String.format("https://login.microsoftonline.com/%s/oauth2/v2.0/token", tenantID);
          }
       } catch (IOException e) {
-         LOG.error("Could not load properties from file '{}'", refreshFile.getAbsolutePath(), e);
+         LOG.error("Error loading properties from file '{}'", refreshFile.getAbsolutePath(), e);
       }
    }
 
@@ -143,8 +143,9 @@ public class Graph {
    }
 
    private void getNewAccessToken() throws IOException, InterruptedException {
-      final InputStream input = new FileInputStream(refreshFile);
-      properties.load(input);
+      try (InputStream input = new FileInputStream(refreshFile)) {
+         properties.load(input);
+      }
 
       final Map<Object, Object> values = new HashMap<>();
 
@@ -213,6 +214,10 @@ public class Graph {
       } catch (final IllegalArgumentException e) {
          LOG.warn("Unknown availability '{}'.", teamsStatus, e);
       }
-      return availabilityStatus.getColor();
+      if (availabilityStatus != null) {
+         return availabilityStatus.getColor();
+      } else {
+         return null;
+      }
    }
 }
