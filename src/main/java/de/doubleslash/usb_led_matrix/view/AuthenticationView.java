@@ -182,11 +182,9 @@ public class AuthenticationView {
          this.deviceCode.set(deviceCode);
       } catch (IOException e) {
          LOG.error("Could not retrieve device code: ", e);
-   ;
       } catch (InterruptedException e) {
+         LOG.error("CurrentThread was interrupt", e);
          Thread.currentThread().interrupt();
-         LOG.error("CurrentThread was interrupt");
-
       }
    }
 }
