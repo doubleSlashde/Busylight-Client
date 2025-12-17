@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="585.0" style="-fx-background-color: black;" styleClass="backgroundColor" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.doubleslash.usb_led_matrix.view.Co2View">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="585.0" styleClass="backgroundColor">
+         <children>
+            <AnchorPane prefHeight="47.0" prefWidth="207.0" />
+            <Label prefHeight="81.0" prefWidth="252.0" text="Sensor Values">
+               <font>
+                  <Font size="32.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="0.004761904761904745" startX="0.4238095238095238" startY="0.7285714285714285">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.12156862765550613" green="0.8078431487083435" blue="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.4745098054409027" green="0.7882353067398071" blue="0.40784314274787903" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+         </children>
+      </HBox>
+      <VBox prefHeight="270.0" prefWidth="308.0" styleClass="backgroundColor">
+         <children>
+            <Line endX="480.878662109375" endY="-2.1213202476501465" startX="-100.0" strokeWidth="3.0">
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.08235294371843338" green="0.18431372940540314" blue="0.29019609093666077" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.019607843831181526" green="0.27450981736183167" blue="0.19607843458652496" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Line>
+            <HBox prefHeight="16.0" prefWidth="586.0">
+               <children>
+                  <Label prefHeight="36.0" prefWidth="124.0" text="Values:" textFill="#79c968">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <padding>
+                        <Insets left="35.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="60.0" prefWidth="586.0">
+               <children>
+                  <Label prefHeight="26.0" prefWidth="212.0" styleClass="labelText" text="Ip Addrese input:" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <padding>
+                        <Insets left="34.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="IPEingabe" prefHeight="26.0" prefWidth="227.0" promptText="Ip address " />
+                  <AnchorPane prefHeight="18.0" prefWidth="11.0" />
+                  <Button mnemonicParsing="false" onAction="#IPButtonSave" prefHeight="30.0" prefWidth="68.0" style="-fx-background-radius: 5;" text="Save" />
+               </children>
+            </HBox>
+            <Line endX="480.878662109375" endY="-2.1213202476501465" startX="-100.0" strokeWidth="3.0">
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.08235294371843338" green="0.18431372940540314" blue="0.29019609093666077" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.019607843831181526" green="0.27450981736183167" blue="0.19607843458652496" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Line>
+            <HBox prefHeight="115.0" prefWidth="298.0" styleClass="backgroundColor">
+               <children>
+                  <VBox prefHeight="105.0" prefWidth="209.0">
+                     <children>
+                        <Label styleClass="labelText" text="C02:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                           <padding>
+                              <Insets left="34.0" />
+                           </padding>
+                        </Label>
+                        <Label prefHeight="26.0" prefWidth="171.0" styleClass="labelText" text="Humidity:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                           <padding>
+                              <Insets left="34.0" />
+                           </padding>
+                        </Label>
+                        <Label prefHeight="26.0" prefWidth="171.0" styleClass="labelText" text="Temperature:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                           <padding>
+                              <Insets left="34.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <AnchorPane prefHeight="85.0" prefWidth="43.0" />
+                  <VBox prefHeight="110.0" prefWidth="333.0">
+                     <children>
+                        <Label fx:id="co2Value" prefHeight="26.0" prefWidth="333.0" styleClass="labelText" text="N/A" textFill="WHITE">
+                           <font>
+                              <Font size="17.0" />
+                           </font></Label>
+                        <Label fx:id="feuchtigkeitValue" prefHeight="26.0" prefWidth="340.0" styleClass="labelText" text="N/A" textFill="WHITE">
+                           <font>
+                              <Font size="17.0" />
+                           </font></Label>
+                        <Label fx:id="temperaturValue" prefHeight="26.0" prefWidth="330.0" styleClass="labelText" text="N/A" textFill="WHITE">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>

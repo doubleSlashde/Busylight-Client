@@ -404,7 +404,7 @@ public class ConfigurationView {
       usbAdapter.closePort();
       startNamedThreadWithRunnable(reconnectionCheckRunnable, "reconnectionThread");
    }
-
+Co2View co2View;
    private void startNamedThreadWithRunnable(final Runnable runnable, final String name) {
       if (currentlyRunningThread != null && currentlyRunningThread.isAlive()) {
          currentlyRunningThread.interrupt();
@@ -412,7 +412,7 @@ public class ConfigurationView {
       currentlyRunningThread = new Thread(runnable);
       currentlyRunningThread.setName(name);
       currentlyRunningThread.start();
-   }
+  }
 
    void reconnect() {
       usbAdapter.connect();
@@ -476,6 +476,28 @@ public class ConfigurationView {
          LOG.error("Could not load view '{}'.", Resources.INFO_VIEW, e);
       }
    }
+
+   @FXML
+      void showCo2View() {
+         final FXMLLoader fxmlLoader = new FXMLLoader(Resources.CO2_VIEW.getResource());
+         try {
+            Stage stage = new Stage();
+            final Parent root = fxmlLoader.load();
+            final Scene scene = new Scene(root);
+
+            stage.setTitle("Co2 Sensordaten");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+         } catch (final IOException e) {
+            LOG.error("Could not load view '{}'.", Resources.CO2_VIEW, e);
+         }
+      }
+
+
+
+
 
    @FXML
    void showSettingsView() {
